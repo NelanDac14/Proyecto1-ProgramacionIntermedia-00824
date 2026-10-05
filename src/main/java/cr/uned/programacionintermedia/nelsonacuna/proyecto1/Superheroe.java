@@ -71,13 +71,7 @@ public class Superheroe {
     }
 
     public void setNombreHeroico(String nombreHeroico) {
-
-        // Validación del nombre heroico
-        if (nombreHeroico.length() >= 3) {
             this.nombreHeroico = nombreHeroico;
-        } else {
-            System.out.println("Nombre inválido, el nombre heroico debe tener al menos 3 caracteres");
-        }
     }
 
     public String getNombreReal() {
@@ -85,12 +79,7 @@ public class Superheroe {
     }
 
     public void setNombreReal(String nombreReal) {
-        // Validación del nombre real
-        if (nombreReal.length() >= 3) {
             this.nombreReal = nombreReal;
-        } else {
-            System.out.println("Nombre inválido, el nombre real debe tener al menos 3 caracteres");
-        }
     }
 
     public String getPoder() {
