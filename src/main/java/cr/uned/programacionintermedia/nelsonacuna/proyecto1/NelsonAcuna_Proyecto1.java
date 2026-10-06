@@ -174,6 +174,7 @@ public class NelsonAcuna_Proyecto1 {
                         // switch submenú Módulo de Reportes.
                         switch (opcMenu) {
                             case 1: // Mostrar todos los superhéroes
+                                mostrarSuperHeroes(superHeroes);
                                 break;
                             case 2: // Buscar superhéroes por ID
                                 break;
@@ -215,13 +216,13 @@ public class NelsonAcuna_Proyecto1 {
     // Menú principal del proyecto.
     public static void menuPrincipal() {
 
-        System.out.println("\n=======================================================");
-        System.out.println("||              ACADEMIA DE SUPERHÉROES              ||");
-        System.out.println("=======================================================\n");
+        System.out.println("=".repeat(55));
+        System.out.println("||"+" ".repeat(14)+"ACADEMIA DE SUPERHÉROES              ||");
+        System.out.println("=".repeat(55));
 
         System.out.println("Sistema de Gestión de Superhéroes y Equipos de Rescate\n");
 
-        System.out.println("================== MENÚ PRINCIPAL =====================");
+        System.out.println("=".repeat(19) + " MENÚ PRINCIPAL " + "=".repeat(20));
         System.out.println("1. Gestión de Superhéroes");
         System.out.println("2. Gestión de Equipos de Rescate");
         System.out.println("3. Módulo de Reportes");
@@ -233,7 +234,7 @@ public class NelsonAcuna_Proyecto1 {
 
     // Submenú de Gestión de Superhéroes.
     public static void menuGestionSuperheroes() {
-        System.out.println("\n------ GESTIÓN DE SUPERHÉROES ------\n");
+        System.out.println("\n" + "-".repeat(15) + " GESTIÓN DE SUPERHÉROES " + "-".repeat(16) + "\n");
         System.out.println("1. Agregar superhéroe");
         System.out.println("2. Actualizar datos de un superhéroe");
         System.out.println("3. Cambiar estado de un superhéroe");
@@ -246,7 +247,7 @@ public class NelsonAcuna_Proyecto1 {
 
     // Submenú de Gestión de Equipos de Rescate.
     public static void menuGestionEquiposRescate() {
-        System.out.println("\n---- Gestión de Equipos de Rescate ----");
+        System.out.println("\n" + "-".repeat(12) + " Gestión de Equipos de Rescate " + "-".repeat(12) + "\n");
         System.out.println("1. Agregar equipo");
         System.out.println("2. Actualizar equipo");
         System.out.println("3. Eliminar equipo");
@@ -257,7 +258,7 @@ public class NelsonAcuna_Proyecto1 {
 
     // Submenú del Módulo de reportes.
     public static void menuModuloReportes() {
-        System.out.println("\n===== MÓDULO DE REPORTES ====\n");
+        System.out.println("\n" + "-".repeat(17) + " MÓDULO DE REPORTES " + "-".repeat(18) + "\n");
         System.out.println("1. Mostrar todos los superhéroes");
         System.out.println("2. Buscar superhéroes por ID");
         System.out.println("3. Mostrar todos los equipos de rescate");
@@ -425,9 +426,9 @@ public class NelsonAcuna_Proyecto1 {
 
     public static void cambiarEstadoSuperHeroe(Scanner entrada, ArrayList<Superheroe> superHeroes, String estado, boolean continuar) {
         if (!superHeroes.isEmpty()) {
-            String idSuperHeroe = "";
+            String idSuperHeroe;
 
-            System.out.println("---- CAMBIO DE ESTADO DE SUPERHÉROE ----\n");
+            System.out.println("\n" + "-".repeat(11) + " CAMBIO DE ESTADO DE SUPERHÉROE " + "-".repeat(12) + "\n");
             System.out.print("Ingrese el ID del Superhéroe: ");
             // Recibimos el ID del superhéro a cambiar de estado
             idSuperHeroe = entrada.nextLine();
@@ -470,7 +471,24 @@ public class NelsonAcuna_Proyecto1 {
     }
     
     //Métodos del módulo de reporte
-    public static void mostrarSuperHeroes(){
-        
+    public static void mostrarSuperHeroes(ArrayList<Superheroe> superHeroes) {
+        System.out.println("\n" + "-".repeat(26) + " LISTADO DE SUPERHÉROES " + "-".repeat(27) +"\n");
+        // Se valida que la lista no esté vacía<
+        if (!superHeroes.isEmpty()) {
+            // Encabezado de la lista de superHéroes
+            System.out.printf("%-8s  %-15s  %-10s  %-10s  %-12s  %-10s  \n","ID", "Nombre Heroico", "Poder", "Nivel", "Estado", "Salario");
+            System.out.println("=".repeat(77));
+            // Recorremos la lista de superheroes para mostrarlo al usuario
+            for (Superheroe superHeroe : superHeroes) {                
+                // Imprime cada superhéroe de la lista con el formato ya indicado
+                System.out.printf("%-8s  %-15s  %-10s  %-10s  %-12s  %-10s  \n", superHeroe.getIdHeroe(), superHeroe.getNombreHeroico(),
+                        superHeroe.getPoder(), superHeroe.getExperiencia(), superHeroe.getEstado(), superHeroe.getSalarioMensual());
+                System.out.println("-".repeat(77));
+            }
+            //Mensaje que indica la cantidad de superhéroes registados a la actualidad 
+            System.out.print("\nTotal de superhéroes registrados: " + superHeroes.size());
+        } else {
+            System.out.println("¡Lista vacía! Agrega un superhéroe para continuar");
+        }
     }
 }
