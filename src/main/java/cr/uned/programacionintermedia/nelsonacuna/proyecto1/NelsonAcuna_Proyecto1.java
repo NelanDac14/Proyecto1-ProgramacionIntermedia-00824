@@ -220,7 +220,7 @@ public class NelsonAcuna_Proyecto1 {
     public static void menuPrincipal() {
 
         System.out.println("=".repeat(55));
-        System.out.println("||"+" ".repeat(14)+"ACADEMIA DE SUPERHÉROES              ||");
+        System.out.println("||" + " ".repeat(14) + "ACADEMIA DE SUPERHÉROES              ||");
         System.out.println("=".repeat(55));
 
         System.out.println("Sistema de Gestión de Superhéroes y Equipos de Rescate\n");
@@ -273,19 +273,19 @@ public class NelsonAcuna_Proyecto1 {
 
         System.out.print("\nSeleccione una opción: ");
     }
-    
+
     /**
-    * Formateo para expreción monetaria o contable
-    * 
-    * Establece el formato en estilo decimal con dos decimales para referir un
-    * dato que demastrará una expresión monetaria en dólares.
-    * 
-    * @param monto recibe un tipo de dato int, con la intención de convertirlo
-    * en formato monetario
-    * 
-    * @return Retorna el dato con el formato monetario establecido
-    */
-    public static String formatoMonetario (double monto){        
+     * Formateo para expreción monetaria o contable
+     *
+     * Establece el formato en estilo decimal con dos decimales para referir un
+     * dato que demastrará una expresión monetaria en dólares.
+     *
+     * @param monto recibe un tipo de dato int, con la intención de convertirlo
+     * en formato monetario
+     *
+     * @return Retorna el dato con el formato monetario establecido
+     */
+    public static String formatoMonetario(double monto) {
         // Se establece los símbolos decimales a utilizar
         DecimalFormatSymbols simbolos = new DecimalFormatSymbols(Locale.US);
         // Se establece la coma como seperador de grupos
@@ -297,24 +297,23 @@ public class NelsonAcuna_Proyecto1 {
         // Retornamos el dato en string con el formato establecido
         return String.valueOf(formato_contable.format(monto));
     }
-    
+
     //Métodos del módulo de Gestión de Superhéroes
-    
     /**
      * Agrega un nuevo superhéroe
-     * 
+     *
      * Este métodos solicita la información necesaria para agregar un nuevo
      * superhéroe y la guarda en el ArrayList superHeroes
-     * 
+     *
      * @param entrada
-     * @param nombHeroico 
-     * @param nombReal 
-     * @param poderPrincipal 
+     * @param nombHeroico
+     * @param nombReal
+     * @param poderPrincipal
      * @param nivel
      * @param estado
-     * @param salarioMensual 
-     * @param continuar 
-     * @param superHeroes 
+     * @param salarioMensual
+     * @param continuar
+     * @param superHeroes
      */
     public static void agregarSuperHeroe(Scanner entrada, String nombHeroico, String nombReal, String poderPrincipal,
             String nivel, String estado, double salarioMensual, boolean continuar, ArrayList<Superheroe> superHeroes) {
@@ -457,26 +456,38 @@ public class NelsonAcuna_Proyecto1 {
         System.out.println("¡Superhéroe registrado correctamente!");
     }
 
-    public static void actualizarDatosSuperHeroe() {
+    /**
+     * Atualiza datos de un superhéroe
+     *
+     * Su funcionalidad es la actualización de datos de los superhéroes para
+     * mantener actualizados estos o por si algún error de digitación
+     *
+     * @param entrada
+     * @param superHeroes
+     * @param continuar
+     */
+    public static void actualizarDatosSuperHeroe(Scanner entrada, ArrayList<Superheroe> superHeroes, boolean continuar) {
 
     }
 
     /**
      * Cambia el estado del superhéroe según si ID
-     * 
-     * Permite al usuario cambiar el estado del superhéros (Disponible, En misión o Recuperación)
-     * esto con la intención de valorar que superhéroe se encuentra disponible durante
-     * un evento de emergencia
-     * 
-     * @param entrada recibe datos del usuario, para este caso el ID del superhéroe
+     *
+     * Permite al usuario cambiar el estado del superhéros (Disponible, En
+     * misión o Recuperación) esto con la intención de valorar que superhéroe se
+     * encuentra disponible durante un evento de emergencia
+     *
+     * @param entrada recibe datos del usuario, para este caso el ID del
+     * superhéroe
      * @param superHeroes lista actual de superhéroes en sistema
-     * @estado
+     * @param continuar
      */
-    public static void cambiarEstadoSuperHeroe(Scanner entrada, ArrayList<Superheroe> superHeroes, String estado, boolean continuar) {
+    public static void cambiarEstadoSuperHeroe(Scanner entrada, ArrayList<Superheroe> superHeroes, boolean continuar) {
         if (!(superHeroes.isEmpty())) {
             // Variables
             String idSuperHeroe;
-            
+            String estado;
+
             // Limpiarmos buffer residual
             entrada.nextLine();
 
@@ -507,13 +518,13 @@ public class NelsonAcuna_Proyecto1 {
                             case "recuperación":
                                 continuar = false;
                                 break;
-                                // Opción inválida
+                            // Opción inválida
                             default:
                                 System.out.println("¡Estado inválido! Intentalo de nuevo.\nEstados a elegir: Disponible, En misión, Recuperación");
                                 break;
                         }
-                    } while(continuar);
-                    
+                    } while (continuar);
+
                     // Asignamos el nuevo estado al superHéroe correspondiente
                     superheroe.setEstado(estado);
                     System.out.println("¡Cambio de estado realizado correctamente!\n" + superheroe.getIdHeroe() + "  " + superheroe.getNombreHeroico() + ": " + superheroe.getEstado());
@@ -524,25 +535,74 @@ public class NelsonAcuna_Proyecto1 {
             System.out.println("Primero debe agregar algún Superhéroe");
         }
     }
-    
+
+    /**
+     * Elimina un superhéroe del sistema
+     *
+     * Su funcionalidad es eliminar a un superhéroe, el cual es buscado por su
+     * ID y luego eliminado de la lista
+     *
+     * @param entrada
+     * @param superHeroes
+     * @param continuar
+     */
+    public static void eliminarSuperHeroe(Scanner entrada, ArrayList<Superheroe> superHeroes, boolean continuar) {
+        // Variables
+        String idSuperHeroe;
+        continuar = true;
+
+        //Validamos que ya haya héroes registrados
+        if (!superHeroes.isEmpty()) {
+            do {
+                // Eliminamos el buffer de entrada
+                entrada.nextLine();
+                // Solicitamos el Id del héroe a eliminar
+                System.out.println("\n" + "-".repeat(17) + " ELIMINAR SUPERHÉROE " + "-".repeat(17) + "\n");
+                System.out.print("Ingrese el ID del Superhéroe: ");
+                idSuperHeroe = entrada.nextLine();
+
+                // Visualizamos que el usuario no haya ingresado dato en blanco
+                if (!idSuperHeroe.isEmpty()) {
+
+                    // Buscamos que el ID exista dentro
+                    for (Superheroe superHeroe : superHeroes) {
+                        
+                        if(superHeroe.getIdHeroe().equals(idSuperHeroe)){
+                            // Reafirmamos la descisión de eliminar al superhéroe solicitado o velvemos a preguntar
+                            System.out.print("Deseas eliminar a: " + superHeroe.getIdHeroe() + " | " + superHeroe.getNombreHeroico() + "(S/N)");
+                            // Validamos respuesta de usuario
+                            
+                            
+                        }
+                    }
+
+                } else {
+                    System.out.println("Debes ingresar un ID válido para continuar");
+                }
+            } while (continuar);
+        } else {
+            System.out.println("¡Debes agregar superhéroes primero para continuar!");
+        }
+    }
+
     /**
      * Muestra todos los superhéroes registrados
-     * 
-     * Muestra en pantalla la lista de superhéroes actual con el objetivo
-     * de que el usuario pueda observarlos
-     * 
-     * @param superHeroes esta es la lista de superhéroes que existen hasta el momento,
-     * registrado por el usuari
+     *
+     * Muestra en pantalla la lista de superhéroes actual con el objetivo de que
+     * el usuario pueda observarlos
+     *
+     * @param superHeroes esta es la lista de superhéroes que existen hasta el
+     * momento, registrado por el usuari
      */
     public static void mostrarSuperHeroes(ArrayList<Superheroe> superHeroes) {
-        System.out.println("\n" + "-".repeat(26) + " LISTADO DE SUPERHÉROES " + "-".repeat(27) +"\n");
+        System.out.println("\n" + "-".repeat(26) + " LISTADO DE SUPERHÉROES " + "-".repeat(27) + "\n");
         // Se valida que la lista no esté vacía<
         if (!superHeroes.isEmpty()) {
             // Encabezado de la lista de superHéroes
-            System.out.printf("%-8s  %-15s  %-10s  %-10s  %-12s  %-10s  \n","ID", "Nombre Heroico", "Poder", "Nivel", "Estado", "Salario");
+            System.out.printf("%-8s  %-15s  %-10s  %-10s  %-12s  %-10s  \n", "ID", "Nombre Heroico", "Poder", "Nivel", "Estado", "Salario");
             System.out.println("=".repeat(77));
             // Recorremos la lista de superheroes para mostrarlo al usuario
-            for (Superheroe superHeroe : superHeroes) {                
+            for (Superheroe superHeroe : superHeroes) {
                 // Imprime cada superhéroe de la lista con el formato ya indicado
                 System.out.printf("%-8s  %-15s  %-10s  %-10s  %-12s  %-10s  \n", superHeroe.getIdHeroe(), superHeroe.getNombreHeroico(),
                         superHeroe.getPoder(), superHeroe.getExperiencia(), superHeroe.getEstado(), formatoMonetario(superHeroe.getSalarioMensual()));
