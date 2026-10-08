@@ -339,6 +339,43 @@ public class NelsonAcuna_Proyecto1 {
         } while (true);
     }
 
+    /**
+     * Buscador por ID de superhéroes
+     *
+     * Busca un superhéroe por su ID, digitado por el usuario
+     *
+     * @param entrada Entrada de datos por teclado
+     * @param superHeroes lista de superhéroes actual
+     * @param idSuperHeroe id suministrado por el usuario
+     * @param encontrado notifica al usuario si encontró o no el ID
+     *
+     * @return retorna la posición del superhéroe dentro de la lista
+     */
+    public static int buscadorIdHeroes(Scanner entrada, ArrayList<Superheroe> superHeroes, String idSuperHeroe, boolean encontrado) {
+        do {
+            System.out.print("Ingrese el ID del Superhéroe: ");
+            idSuperHeroe = entrada.nextLine();
+
+            // Visualizamos que el usuario no haya ingresado dato en blanco
+            if (!idSuperHeroe.isEmpty()) {
+                // Buscamos que el ID exista dentro
+                for (Superheroe superHeroe : superHeroes) {
+
+                    // Comparamos el ID enviado del usuario con el de las lista hasta encontrárlo
+                    if (superHeroe.getIdHeroe().equals(idSuperHeroe)) {
+                        // Héroe encontrado
+                        encontrado = true;
+                        // Obtenemos la poscición del superhéroe a eliminar dentro del ArrayList
+                        return superHeroes.indexOf(superHeroe);
+
+                    }
+                }
+            } else {
+                System.out.println("Debes ingresar un ID válido para continuar");
+            }
+        } while (true);
+    }
+
     //Métodos del módulo de Gestión de Superhéroes
     /**
      * Agrega un nuevo superhéroe
@@ -507,8 +544,62 @@ public class NelsonAcuna_Proyecto1 {
      * @param superHeroes
      * @param continuar
      */
-    public static void actualizarDatosSuperHeroe(Scanner entrada, ArrayList<Superheroe> superHeroes, boolean continuar) {
+    public static void actualizarDatosSuperHeroe(Scanner entrada, ArrayList<Superheroe> superHeroes) {
+        // Variables
+        String idSuperHeroe = "";
+        String pregunta;
+        boolean encontrado;
+        int posSuperHeroe;
 
+        // se repite mientras el usuario no regrese al menú principal o que no exista supehéroes
+        do {
+            // Validamos que haya héroes registrados
+            if (superHeroes.isEmpty()) {
+                System.out.println("¡Debes agregar superhéroes primero para continuar!");
+                return;
+            }
+
+            // Se inicializa en falso dentro del bucle do/while
+            encontrado = false;
+
+            // Eliminamos el buffer de entrada
+            entrada.nextLine();
+            // Solicitamos el Id del héroe a eliminar
+            System.out.println("\n" + "-".repeat(7) + " ACTUALIZACIÓN DE DATOS DE UN SUPERHÉROE " + "-".repeat(7) + "\n");
+
+            posSuperHeroe = buscadorIdHeroes(entrada, superHeroes, idSuperHeroe, encontrado);
+
+            // Si no se encontrara el superhéro dentro de la lista, notificamos al usuario
+            if (!encontrado) {
+                System.out.println("El superhéroe con el ID: " + idSuperHeroe + " no se encuentra registrado");
+                pregunta = "Desea regresar al menú principal";
+                // Validamos la respuesta del usuario
+                if (respuestaSiNo(entrada, pregunta)) {
+                    return;
+                } else {
+                    //Repetimos eliminar superhéroe
+                    continue;
+                }
+            }
+
+            // Reafirmamos la descisión de eliminar al superhéroe solicitado o velvemos a preguntar
+            pregunta = "Deseas eliminar a: " + superHeroes.get(posSuperHeroe).getIdHeroe()
+                    + " | " + superHeroes.get(posSuperHeroe).getNombreHeroico() + "(S/N)";
+
+            // Validamos respuesta de usuario
+            if (respuestaSiNo(entrada, pregunta)) {
+                // Se elimina el superhéroe
+                superHeroes.remove(posSuperHeroe);
+                System.out.println("El superhéroe fue eliminado correctamente");
+
+                //Preguntamos si desea eliminar a otro superhéroe
+                pregunta = "Deseas regresar al menú principal";
+                if (respuestaSiNo(entrada, pregunta)) {
+                    // Regresamos al menú principal
+                    return;
+                }
+            }
+        } while (true);
     }
 
     /**
@@ -593,13 +684,15 @@ public class NelsonAcuna_Proyecto1 {
         boolean encontrado;
         int posSuperHeroe = 0;
 
-        //Validamos que ya haya héroes registrados
+        // Se repite mientras el usuario no regrese al menú principal o que no exista supehéroes
         do {
             // Validamos que haya héroes registrados
             if (superHeroes.isEmpty()) {
                 System.out.println("¡Debes agregar superhéroes primero para continuar!");
                 return;
             }
+
+            // Se inicializa en falso dentro del bucle do/while
             encontrado = false;
             // Eliminamos el buffer de entrada
             entrada.nextLine();
