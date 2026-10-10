@@ -345,6 +345,39 @@ public class NelsonAcuna_Proyecto1 {
     }
 
     /**
+     * Solicitud y validación de nombre
+     * 
+     * Solicita al usuario un nombre, ya se de superhéroe, nombre real, nombre de 
+     * equipo de rescate o nombre de ciudad asignada lo valida que tenga el mínimo 
+     * de caracteres correspondientes
+     * 
+     * @param entrada entrada de datos
+     * 
+     * @param mensaje mensaje del dato que va a solicitar
+     * 
+     * @param tamMinNomb dato que estable el mínimo de caracteres 
+     * que debe tener el dato a solicitar
+     * 
+     * @return retorna un String con el nombre solicitado ya validado a que 
+     * tenga el mínimo de caracteres correspondientes
+     */
+    public static String solicitarNombre(Scanner entrada, String mensaje, int tamMinNomb) {
+        // Se solicita el nombre heroico
+        do {
+
+            String nombSolicitado;
+            System.out.print(mensaje + ": ");
+            nombSolicitado = entrada.nextLine();
+            // Validamos que el nombre tenga más de 3 caracteres
+            if (nombSolicitado.length() >= tamMinNomb) {
+                return nombSolicitado;
+            } else {
+                System.out.println("\n¡Nombre inválido!. Debe contener al menos " + tamMinNomb + " caracteres.\n");
+            }
+        } while (true);
+    }
+
+    /**
      * Solicita datos de un superhéroe
      *
      * Solicita al usuario datos de un superhéro, ya se para agregar o
@@ -362,32 +395,18 @@ public class NelsonAcuna_Proyecto1 {
         String estado;
         double salarioMensual;
 
+        String mensaje;
+
         // Se solicita el nombre heroico
-        do {
-            System.out.print("Nombre heroico: ");
-            nombHeroico = entrada.nextLine();
-            // Validamos que el nombre tenga más de 3 caracteres
-            if (nombHeroico.length() >= 3) {
-                break;
-            } else {
-                System.out.println("\nNombre inválido, el nombre heroico debe tener al menos 3 caracteres\n");
-            }
-        } while (true);
+        mensaje = "Nombre heroico";
+        nombHeroico = solicitarNombre(entrada, mensaje, 3);
 
         // Asignamos el dato al superhéroe
         superHeroe.setNombreHeroico(nombHeroico);
 
         // Se solicita el nombre real
-        do {
-            System.out.print("Nombre real: ");
-            nombReal = entrada.nextLine();
-            // Validamos que el nombre tenga más de 3 caracteres
-            if (nombReal.length() >= 3) {
-                break;
-            } else {
-                System.out.println("\nNombre inválido, el nombre real debe tener al menos 3 caracteres\n");
-            }
-        } while (true);
+        mensaje = "Nombre real";
+        nombReal = solicitarNombre(entrada, mensaje, 3);
 
         // Asignamos el dato al superhéroe
         superHeroe.setNombreReal(nombReal);
@@ -501,6 +520,10 @@ public class NelsonAcuna_Proyecto1 {
         entrada.nextLine();
     }
 
+    public static void solicitarDatosEquipoRescate(Scanner entrada, EquipoRescate equipoRescate) {
+
+    }
+
     /**
      * Buscador por ID de superhéroes
      *
@@ -541,10 +564,10 @@ public class NelsonAcuna_Proyecto1 {
 
     /**
      * Imprime una lista de superhéroes
-     * 
-     * Su función es imprimir la cantidad de superhéroes existentes dentro del 
+     *
+     * Su función es imprimir la cantidad de superhéroes existentes dentro del
      * ArrayList, se 1 o varios
-     * 
+     *
      * @param superHeroes Lista que recibe para imprimir
      */
     public static void imprimirSuperHeroes(ArrayList<Superheroe> superHeroes) {
@@ -555,7 +578,7 @@ public class NelsonAcuna_Proyecto1 {
         // Recorremos la lista de superheroes para mostrarlo al usuario
         for (Superheroe superHeroe : superHeroes) {
             // Imprime cada superhéroe de la lista con el formato ya indicado
-            System.out.printf("%-6s   %-14s  %-17s   %-10s   %-12s   %-9s  \n", superHeroe.getIdHeroe(), superHeroe.getNombreHeroico(),
+            System.out.printf("%-6s   %-14s   %-17s   %-10s   %-12s   %-9s  \n", superHeroe.getIdHeroe(), superHeroe.getNombreHeroico(),
                     superHeroe.getPoder(), superHeroe.getExperiencia(), superHeroe.getEstado(), formatoMonetario(superHeroe.getSalarioMensual()));
             System.out.println("-".repeat(86));
         }
@@ -563,7 +586,6 @@ public class NelsonAcuna_Proyecto1 {
     }
 
     //Métodos del Módulo de Gestión de Superhéroes
-    
     /**
      * Agrega un nuevo superhéroe o actualiza su información
      *
@@ -813,10 +835,8 @@ public class NelsonAcuna_Proyecto1 {
     }
 
     //Métodos del Módulo de Gestioón de Equipos de Rescate
-    
-    
     public static void agregarEquipo() {
-        
+
     }
 
     public static void actualizarEquipo() {
@@ -828,7 +848,6 @@ public class NelsonAcuna_Proyecto1 {
     }
 
     //Métodos del Módulo de Reportes
-    
     /**
      * Muestra todos los superhéroes registrados
      *
@@ -881,20 +900,20 @@ public class NelsonAcuna_Proyecto1 {
                 // Repetimos el proceso de buscar un ID 
                 continue;
             }
-            
+
             // Agregamos el superhéroe encontrado a la lista de encontrados para imprimir
             superHeroesEncontrados.add(superHeroes.get(posIndexSuperHeroe));
-            
+
             // Imprimimos el superhéroe encontrado
             imprimirSuperHeroes(superHeroesEncontrados);
-            
+
             // Preguntamos si desea buscar otro superhéroe
             pregunta = "Deseas buscar otro superhéroe";
-            if(respuestaSiNo(entrada, pregunta)){
+            if (respuestaSiNo(entrada, pregunta)) {
                 // Salimos al menú anterior del módulo de reportes
                 return;
             }
-            
+
         } while (true);
 
     }
