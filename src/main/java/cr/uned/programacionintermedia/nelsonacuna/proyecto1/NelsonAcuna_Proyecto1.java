@@ -53,6 +53,8 @@ public class NelsonAcuna_Proyecto1 {
             try {
                 // Recibe la opción elegida del usuario
                 opcMenu = scannerEntrada.nextInt();
+                //Eliminamos el buffer residual
+                scannerEntrada.nextLine();
             } catch (InputMismatchException e) {
                 System.out.println("Opción inválida, inténtelo de nuevo.");
                 // Descartamos el buffer de entrada erróneo.
@@ -75,6 +77,8 @@ public class NelsonAcuna_Proyecto1 {
                         try {
                             // Recibe la opción elegida del usuario
                             opcMenu = scannerEntrada.nextInt();
+                            //Eliminamos el buffer residual
+                            scannerEntrada.nextLine();
                         } catch (InputMismatchException e) {
                             System.out.println("Opción inválida, inténtelo de nuevo.");
                             // Descartamos el buffer de entrada erróneo.
@@ -122,6 +126,8 @@ public class NelsonAcuna_Proyecto1 {
                         try {
                             // Recibe la opción elegida del usuario
                             opcMenu = scannerEntrada.nextInt();
+                            //Eliminamos el buffer residual
+                            scannerEntrada.nextLine();
                         } catch (InputMismatchException e) {
                             System.out.println("Opción inválida, inténtelo de nuevo.");
                             // Descartamos el buffer de entrada erróneo.
@@ -162,6 +168,8 @@ public class NelsonAcuna_Proyecto1 {
                         try {
                             // Recibe la opción elegida del usuario
                             opcMenu = scannerEntrada.nextInt();
+                            //Eliminamos el buffer residual
+                            scannerEntrada.nextLine();
                         } catch (InputMismatchException e) {
                             System.out.println("Opción inválida, inténtelo de nuevo.");
                             // Descartamos el buffer de entrada erróneo.
@@ -215,13 +223,14 @@ public class NelsonAcuna_Proyecto1 {
     // Menú principal del proyecto.
     public static void menuPrincipal() {
 
-        System.out.println("=".repeat(55));
+        System.out.println("\n" + "=".repeat(55));
         System.out.println("||" + " ".repeat(14) + "ACADEMIA DE SUPERHÉROES              ||");
         System.out.println("=".repeat(55));
 
-        System.out.println("Sistema de Gestión de Superhéroes y Equipos de Rescate\n");
+        System.out.println("\nSistema de Gestión de Superhéroes y Equipos de Rescate\n");
 
-        System.out.println("=".repeat(19) + " MENÚ PRINCIPAL " + "=".repeat(20));
+        System.out.println("=".repeat(19) + " MENÚ PRINCIPAL " + "=".repeat(20) + "\n");
+
         System.out.println("1. Gestión de Superhéroes");
         System.out.println("2. Gestión de Equipos de Rescate");
         System.out.println("3. Módulo de Reportes");
@@ -351,6 +360,7 @@ public class NelsonAcuna_Proyecto1 {
         String nivel;
         String estado;
         double salarioMensual;
+
         // Se solicita el nombre heroico
         do {
             System.out.print("Nombre heroico: ");
@@ -359,7 +369,7 @@ public class NelsonAcuna_Proyecto1 {
             if (nombHeroico.length() >= 3) {
                 break;
             } else {
-                System.out.println("Nombre inválido, el nombre heroico debe tener al menos 3 caracteres");
+                System.out.println("\nNombre inválido, el nombre heroico debe tener al menos 3 caracteres\n");
             }
         } while (true);
 
@@ -374,7 +384,7 @@ public class NelsonAcuna_Proyecto1 {
             if (nombReal.length() >= 3) {
                 break;
             } else {
-                System.out.println("Nombre inválido, el nombre real debe tener al menos 3 caracteres");
+                System.out.println("\nNombre inválido, el nombre real debe tener al menos 3 caracteres\n");
             }
         } while (true);
 
@@ -399,7 +409,7 @@ public class NelsonAcuna_Proyecto1 {
                     // Salimos del switch ya que valida la opción válida
                     break;
                 default:
-                    System.out.println("¡Poder inválido! Intentalo de nuevo.\nPoderes a elegir: Fuerza, Velocidad, Tecnología, Magia, Control elemental");
+                    System.out.println("\n¡Poder inválido! Intentalo de nuevo\n");
                     // Repetimos el bucle do/while 
                     continue;
             }
@@ -426,7 +436,7 @@ public class NelsonAcuna_Proyecto1 {
                     // Salimos del switch ya que valida la opción válida
                     break;
                 default:
-                    System.out.println("¡Nivel inválido! Intentalo de nuevo.\nNiveles a elegir: Novato, Intermedio, Élite");
+                    System.out.println("\n¡Nivel inválido! Intentalo de nuevo.\n");
                     // Repetimos el bucle do/while 
                     continue;
             }
@@ -453,7 +463,7 @@ public class NelsonAcuna_Proyecto1 {
                     // Salimos del switch ya que valida la opción válida
                     break;
                 default:
-                    System.out.println("¡Estado inválido! Intentalo de nuevo.\nEstados a elegir: Disponible, En misión, Recuperación");
+                    System.out.println("\n¡Estado inválido! Intentalo de nuevo.\n");
                     // Repetimos el bucle do/while 
                     continue;
             }
@@ -471,7 +481,7 @@ public class NelsonAcuna_Proyecto1 {
             try {
                 // Recibimos el salario mensual que establece el usuario
                 salarioMensual = entrada.nextDouble();
-                
+
                 // Validamos que el monto ingresado sea mayor a cero
                 if (salarioMensual > 0.0) {
                     break;
@@ -479,12 +489,15 @@ public class NelsonAcuna_Proyecto1 {
                     System.out.println("¡Salario Inválido! Ingrese un monto mayor a cero");
                 }
             } catch (Exception e) {
-                System.out.println("¡Salario Inválido! Intente de nuevo");
+                System.out.println("\n¡Salario Inválido! Intente de nuevo\n");
             }
         } while (true);
 
         // Asignamos el dato al superhéroe
         superHeroe.setSalarioMensual(salarioMensual);
+
+        // Limpiamos el buffer residual
+        entrada.nextLine();
     }
 
     /**
@@ -541,8 +554,6 @@ public class NelsonAcuna_Proyecto1 {
         do {
             // Creamos un nuevo superhéroe
             Superheroe superHeroe = new Superheroe();
-            // Limpiamos el buffer residual
-            entrada.nextLine();
             // Encabezado
             System.out.println("\n" + "-".repeat(17) + " AGREGAR SUPERHÉROE " + "-".repeat(18) + "\n");
 
@@ -576,16 +587,11 @@ public class NelsonAcuna_Proyecto1 {
      *
      * @param entrada
      * @param superHeroes
-     * @param continuar
      */
     public static void actualizarDatosSuperHeroe(Scanner entrada, ArrayList<Superheroe> superHeroes) {
-
-        // Limpiamos el buffer residual
-        entrada.nextLine();
-
         //Validamos que la lista de superhéroes no esté vacia
         if (superHeroes.isEmpty()) {
-            System.out.println("¡Lista vacía! Agrega un superhéroe para continuar");
+            System.out.println("\n¡Lista vacía! Agrega un superhéroe para continuar\n");
             //Regresamos al menú
             return;
         }
@@ -610,12 +616,15 @@ public class NelsonAcuna_Proyecto1 {
                 continue;
             }
 
+            // Se agrega la información correspondiente del superhéroe solicitado
             superHeroe = superHeroes.get(posIndexSuperHeroe);
 
             // Solicitamos los datos actualizados del superhéroe
             solicitarDatosSuperHeroe(entrada, superHeroe);
 
             // Actualizamos el superhéroe
+            superHeroes.set(posIndexSuperHeroe, superHeroe);
+
             String pregunta = "Deseas actualizar a otro superhéroe";
 
             // Si responde que no, sale al menú de Gestión de superhéroes
@@ -646,55 +655,73 @@ public class NelsonAcuna_Proyecto1 {
             //Regresamos al menú
             return;
         }
-        // Variables
-        String idSuperHeroe;
-        String estado;
 
-        // Limpiarmos buffer residual
-        entrada.nextLine();
+        do {
+            // Variables
+            String idSuperHeroe = "";
+            String estado = "";
+            int posIndexSuperHeroe;
 
-        System.out.println("\n" + "-".repeat(11) + " CAMBIO DE ESTADO DE SUPERHÉROE " + "-".repeat(12) + "\n");
-        // Solicitamos el dato necesario para cambiar el estado del superhéroe
-        System.out.print("Ingrese el ID del Superhéroe: ");
-        // Recibimos el ID del superhéro a cambiar de estado
-        idSuperHeroe = entrada.nextLine();
+            // Creamos un nuevo superhéroe
+            Superheroe superHeroe = new Superheroe();
 
-        // Busca el ID del héroe dentro de la lista de héroes actual
-        for (Superheroe superheroe : superHeroes) {
-            // Compara el ID ingresado por el ID de la lista
-            if (superheroe.getIdHeroe().equals(idSuperHeroe)) {
-                System.out.println("\nEl superhéroe " + superheroe.getNombreHeroico() + " cuenta con el estado actual: " + superheroe.getEstado() + "\n");
-                // Se solicita el nuevo estado del superhéroe
-                do {
-                    System.out.print("\nIngrese el nuevo estado (Disponible, En misión, Recuperación)");
-                    // Recibimos el estado elegido por el usuario
-                    estado = entrada.nextLine();
-                    // Se establece en minúscula el estado digitado por el usuario para validar
-                    estado = estado.toLowerCase();
-                    // Validamos que el estado ingresado por el usuario sea válido
-                    switch (estado) {
-                        // Opciones válidas
-                        case "disponible":
-                        case "en misión":
-                        case "recuperación":
-                            // Salimos del switch ya que valida la opción válida
-                            break;
-                        // Opción inválida
-                        default:
-                            System.out.println("¡Estado inválido! Intentalo de nuevo.\nEstados a elegir: Disponible, En misión, Recuperación");
-                            // Repetimos el bucle do/while 
-                            continue;
-                    }
-                    // Salimos del bucle una vez validada la opción elegida del usuario            
-                    break;
-                } while (true);
+            System.out.println("\n" + "-".repeat(11) + " CAMBIO DE ESTADO DE SUPERHÉROE " + "-".repeat(12) + "\n");
 
-                // Asignamos el nuevo estado al superHéroe correspondiente
-                superheroe.setEstado(estado);
-                System.out.println("¡Cambio de estado realizado correctamente!\n" + superheroe.getIdHeroe() + "  " + superheroe.getNombreHeroico() + ": " + superheroe.getEstado());
+            // Busca el ID del héroe dentro de la lista de héroes actual
+            posIndexSuperHeroe = buscadorIdHeroes(entrada, superHeroes, idSuperHeroe);
+
+            // Validamos que se encontró el ID del superhéro buscado
+            if (posIndexSuperHeroe == -1) {
+                System.out.println("\n¡No se encontró el superhéroe solicitado! Intentelo de nuevo\n");
+                // Repetimos el proceso de buscar un ID
+                continue;
+            }
+
+            // Se agrega la información correspondiente del superhéroe solicitado
+            superHeroe = superHeroes.get(posIndexSuperHeroe);
+
+            //Se muestra al usuario el estado actual del superhéroe
+            System.out.println("\nEl superhéroe " + superHeroe.getNombreHeroico() + " cuenta con el estado actual: " + superHeroe.getEstado() + "\n");
+
+            // Se solicita el nuevo estado del superhéroe
+            do {
+                System.out.print("\nIngrese el nuevo estado (Disponible, En misión, Recuperación): ");
+                // Recibimos el estado elegido por el usuario
+                estado = entrada.nextLine();
+                // Se establece en minúscula el estado digitado por el usuario para validar
+                estado = estado.toLowerCase();
+                // Validamos que el estado ingresado por el usuario sea válido
+                switch (estado) {
+                    // Opciones válidas
+                    case "disponible":
+                    case "en misión":
+                    case "recuperación":
+                        // Salimos del switch ya que valida la opción válida
+                        break;
+                    // Opción inválida
+                    default:
+                        System.out.println("\n¡Estado inválido! Intentalo de nuevo.\n");
+                        // Repetimos el bucle do/while 
+                        continue;
+                }
+                // Salimos del bucle una vez validada la opción elegida del usuario            
                 break;
-            }// Fin del if comparativo
-        }// Fin del bucle for
+            } while (true);
+
+            // Asignamos el nuevo estado al superHéroe correspondiente
+            superHeroe.setEstado(estado);
+
+            System.out.println("\nEstado actualizado correctamente!\n");
+
+            String pregunta = "Deseas actualizar el estado a otro superhéroe";
+
+            // Si responde que no, sale al menú de Gestión de superhéroes
+            if (!respuestaSiNo(entrada, pregunta)) {
+                // Salimos del do/while
+                break;
+            }
+
+        } while (true);
     }
 
     /**
@@ -717,7 +744,7 @@ public class NelsonAcuna_Proyecto1 {
         do {
             //Validamos que la lista de superhéroes no esté vacia
             if (superHeroes.isEmpty()) {
-                System.out.println("¡Lista vacía! Agrega un superhéroe para continuar");
+                System.out.println("\n¡Lista vacía! Agrega un superhéroe para continuar\n");
                 //Regresamos al menú
                 return;
             }
@@ -725,7 +752,7 @@ public class NelsonAcuna_Proyecto1 {
             // Se inicializa en falso dentro del bucle do/while
             encontrado = false;
             // Eliminamos el buffer de entrada
-            entrada.nextLine();
+            //entrada.nextLine();
             // Solicitamos el Id del héroe a eliminar
             System.out.println("\n" + "-".repeat(17) + " ELIMINAR SUPERHÉROE " + "-".repeat(17) + "\n");
             System.out.print("Ingrese el ID del Superhéroe: ");
@@ -750,7 +777,7 @@ public class NelsonAcuna_Proyecto1 {
 
                 // Si no se encontrara el superhéro dentro de la lista, notificamos al usuario
                 if (!encontrado) {
-                    System.out.println("El superhéroe con el ID: " + idSuperHeroe + " no se encuentra registrado");
+                    System.out.println("\nEl superhéroe con el ID: " + idSuperHeroe + " no se encuentra registrado\n");
                     pregunta = "Desea regresar al menú principal";
                     // Validamos la respuesta del usuario
                     if (respuestaSiNo(entrada, pregunta)) {
@@ -769,7 +796,7 @@ public class NelsonAcuna_Proyecto1 {
                 if (respuestaSiNo(entrada, pregunta)) {
                     // Se elimina el superhéroe
                     superHeroes.remove(posSuperHeroe);
-                    System.out.println("El superhéroe fue eliminado correctamente");
+                    System.out.println("\nEl superhéroe fue eliminado correctamente\n");
 
                     //Preguntamos si desea eliminar a otro superhéroe
                     pregunta = "Deseas regresar al menú principal";
@@ -795,23 +822,29 @@ public class NelsonAcuna_Proyecto1 {
      * momento, registrado por el usuari
      */
     public static void mostrarSuperHeroes(ArrayList<Superheroe> superHeroes) {
-        System.out.println("\n" + "-".repeat(26) + " LISTADO DE SUPERHÉROES " + "-".repeat(27) + "\n");
-        // Se valida que la lista no esté vacía<
-        if (!superHeroes.isEmpty()) {
-            // Encabezado de la lista de superHéroes
-            System.out.printf("%-8s  %-15s  %-10s  %-10s  %-12s  %-10s  \n", "ID", "Nombre Heroico", "Poder", "Nivel", "Estado", "Salario");
-            System.out.println("=".repeat(77));
-            // Recorremos la lista de superheroes para mostrarlo al usuario
-            for (Superheroe superHeroe : superHeroes) {
-                // Imprime cada superhéroe de la lista con el formato ya indicado
-                System.out.printf("%-8s  %-15s  %-10s  %-10s  %-12s  %-10s  \n", superHeroe.getIdHeroe(), superHeroe.getNombreHeroico(),
-                        superHeroe.getPoder(), superHeroe.getExperiencia(), superHeroe.getEstado(), formatoMonetario(superHeroe.getSalarioMensual()));
-                System.out.println("-".repeat(77));
-            }
-            //Mensaje que indica la cantidad de superhéroes registados a la actualidad 
-            System.out.print("\nTotal de superhéroes registrados: " + superHeroes.size());
-        } else {
-            System.out.println("¡Lista vacía! Agrega un superhéroe para continuar");
+
+        //Validamos que la lista de superhéroes no esté vacia
+        if (superHeroes.isEmpty()) {
+            System.out.println("\n¡Lista vacía! Agrega un superhéroe para continuar\n");
+            //Regresamos al menú
+            return;
         }
+
+        System.out.println("\n" + "-".repeat(31) + " LISTADO DE SUPERHÉROES " + "-".repeat(31) + "\n");
+
+        // Encabezado de la lista de superHéroes
+        System.out.printf("%-6s   %-14s   %-17s   %-10s   %-12s   %-9s   \n", "ID", "Nombre Heroico", "Poder", "Nivel", "Estado", "Salario");
+        System.out.println("=".repeat(86));
+
+        // Recorremos la lista de superheroes para mostrarlo al usuario
+        for (Superheroe superHeroe : superHeroes) {
+            // Imprime cada superhéroe de la lista con el formato ya indicado
+            System.out.printf("%-6s   %-14s  %-17s   %-10s   %-12s   %-9s  \n", superHeroe.getIdHeroe(), superHeroe.getNombreHeroico(),
+                    superHeroe.getPoder(), superHeroe.getExperiencia(), superHeroe.getEstado(), formatoMonetario(superHeroe.getSalarioMensual()));
+            System.out.println("-".repeat(86));
+        }
+
+        //Mensaje que indica la cantidad de superhéroes registados a la actualidad 
+        System.out.print("\nTotal de superhéroes registrados: " + superHeroes.size() + "\n");
     }
 }
