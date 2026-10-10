@@ -7,6 +7,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -538,8 +539,15 @@ public class NelsonAcuna_Proyecto1 {
         } while (true);
     }
 
+    /**
+     * Imprime una lista de superhéroes
+     * 
+     * Su función es imprimir la cantidad de superhéroes existentes dentro del 
+     * ArrayList, se 1 o varios
+     * 
+     * @param superHeroes Lista que recibe para imprimir
+     */
     public static void imprimirSuperHeroes(ArrayList<Superheroe> superHeroes) {
-
         // Encabezado de la lista de superHéroes
         System.out.printf("%-6s   %-14s   %-17s   %-10s   %-12s   %-9s   \n", "ID", "Nombre Heroico", "Poder", "Nivel", "Estado", "Salario");
         System.out.println("=".repeat(86));
@@ -555,6 +563,7 @@ public class NelsonAcuna_Proyecto1 {
     }
 
     //Métodos del Módulo de Gestión de Superhéroes
+    
     /**
      * Agrega un nuevo superhéroe o actualiza su información
      *
@@ -804,8 +813,10 @@ public class NelsonAcuna_Proyecto1 {
     }
 
     //Métodos del Módulo de Gestioón de Equipos de Rescate
+    
+    
     public static void agregarEquipo() {
-
+        
     }
 
     public static void actualizarEquipo() {
@@ -817,6 +828,7 @@ public class NelsonAcuna_Proyecto1 {
     }
 
     //Métodos del Módulo de Reportes
+    
     /**
      * Muestra todos los superhéroes registrados
      *
@@ -843,7 +855,47 @@ public class NelsonAcuna_Proyecto1 {
         System.out.print("\nTotal de superhéroes registrados: " + superHeroes.size() + "\n");
     }
 
-    public static void buscarSuperHeroe() {
+    public static void buscarSuperHeroe(Scanner entrada, ArrayList<Superheroe> superHeroes) {
+        //Validamos que la lista de superhéroes no esté vacia
+        if (superHeroes.isEmpty()) {
+            System.out.println("¡Lista vacía! Agrega un superhéroe para continuar");
+            //Regresamos al menú
+            return;
+        }
+        do {
+            // Variables
+            String idSuperHeroe = "";
+            String pregunta;
+            int posIndexSuperHeroe;
+            ArrayList<Superheroe> superHeroesEncontrados = new ArrayList<>();
+
+            // Título
+            System.out.println("-".repeat(15) + " BUSCADOR DE SUPERHÉROES " + "-".repeat(15));
+
+            // Busca el ID del héroe dentro de la lista de héroes actual
+            posIndexSuperHeroe = buscadorIdHeroes(entrada, superHeroes, idSuperHeroe);
+
+            // Validamos que se encontró el ID del superhéroe buscado
+            if (posIndexSuperHeroe == -1) {
+                System.out.println("\n¡No se encontró el superhéroe solicitado! Intentelo de nuevo\n");
+                // Repetimos el proceso de buscar un ID 
+                continue;
+            }
+            
+            // Agregamos el superhéroe encontrado a la lista de encontrados para imprimir
+            superHeroesEncontrados.add(superHeroes.get(posIndexSuperHeroe));
+            
+            // Imprimimos el superhéroe encontrado
+            imprimirSuperHeroes(superHeroesEncontrados);
+            
+            // Preguntamos si desea buscar otro superhéroe
+            pregunta = "Deseas buscar otro superhéroe";
+            if(respuestaSiNo(entrada, pregunta)){
+                // Salimos al menú anterior del módulo de reportes
+                return;
+            }
+            
+        } while (true);
 
     }
 

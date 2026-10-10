@@ -47,7 +47,8 @@ public class Superheroe {
         this.estado = estado;
         this.salarioMensual = salarioMensual;
     }
-    
+
+    // Constructor sobrecargado
     public Superheroe() {
         this.nombreHeroico = "";
         this.nombreReal = "";
@@ -56,7 +57,14 @@ public class Superheroe {
         this.estado = "";
         this.salarioMensual = 0.0;
     }
-    
+
+    public static int getContadorId() {
+        return contadorId;
+    }
+
+    public static void setContadorId(int contadorId) {
+        Superheroe.contadorId = contadorId;
+    }
 
     public String getIdHeroe() {
         return idHeroe;
@@ -71,7 +79,7 @@ public class Superheroe {
     }
 
     public void setNombreHeroico(String nombreHeroico) {
-            this.nombreHeroico = nombreHeroico;
+        this.nombreHeroico = nombreHeroico;
     }
 
     public String getNombreReal() {
@@ -79,7 +87,7 @@ public class Superheroe {
     }
 
     public void setNombreReal(String nombreReal) {
-            this.nombreReal = nombreReal;
+        this.nombreReal = nombreReal;
     }
 
     public String getPoder() {
@@ -116,13 +124,14 @@ public class Superheroe {
 
     //Métodos adicionales
     public void generadorIdHeroe() {
-
-        //Creamos el nuevo id para el superhéroe
-        contadorId++; // Aumentamos el contador de héroes
+        // Aumentamos el contador de héroes
+        contadorId++;
 
         if (String.valueOf(contadorId).length() >= 2) {
+            // En caso de que la numeración del contadorId sea mayor a 9
             this.idHeroe = "HER-" + contadorId;
         } else {
+            // En caso de que la numeración del contadorId sea menor a 9
             this.idHeroe = "HER-0" + contadorId;
         }
     }
