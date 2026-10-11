@@ -21,11 +21,12 @@ public class NelsonAcuna_Proyecto1 {
     public static void main(String[] args) {
 
         // Variables
-        int opcMenu = 0;
+        int opcMenu;
         boolean continuar;
 
-        // Creamos un ArrayList de SuperHeroes para almacenarlos
+        // Creamos un ArrayList de SuperHeroes y de Equipos de Rescate para almacenarlos
         ArrayList<Superheroe> superHeroes = new ArrayList<>();
+        ArrayList<EquipoRescate> equiposRescate = new ArrayList<>();
 
         /**
          * Configura la salida estándar de la aplicación utilizando la
@@ -140,6 +141,7 @@ public class NelsonAcuna_Proyecto1 {
                         // switch submenú Gestión de Equipos de Rescate.
                         switch (opcMenu) {
                             case 1: // Agregar equipo
+                                agregarEquipo(scannerEntrada, superHeroes, equiposRescate);
                                 break;
                             case 2: // Actualizar equipo
                                 break;
@@ -346,19 +348,19 @@ public class NelsonAcuna_Proyecto1 {
 
     /**
      * Solicitud y validación de nombre
-     * 
-     * Solicita al usuario un nombre, ya se de superhéroe, nombre real, nombre de 
-     * equipo de rescate o nombre de ciudad asignada lo valida que tenga el mínimo 
-     * de caracteres correspondientes
-     * 
+     *
+     * Solicita al usuario un nombre, ya se de superhéroe, nombre real, nombre
+     * de equipo de rescate o nombre de ciudad asignada lo valida que tenga el
+     * mínimo de caracteres correspondientes
+     *
      * @param entrada entrada de datos
-     * 
+     *
      * @param mensaje mensaje del dato que va a solicitar
-     * 
-     * @param tamMinNomb dato que estable el mínimo de caracteres 
-     * que debe tener el dato a solicitar
-     * 
-     * @return retorna un String con el nombre solicitado ya validado a que 
+     *
+     * @param tamMinNomb dato que estable el mínimo de caracteres que debe tener
+     * el dato a solicitar
+     *
+     * @return retorna un String con el nombre solicitado ya validado a que
      * tenga el mínimo de caracteres correspondientes
      */
     public static String solicitarNombre(Scanner entrada, String mensaje, int tamMinNomb) {
@@ -378,150 +380,33 @@ public class NelsonAcuna_Proyecto1 {
     }
 
     /**
-     * Solicita datos de un superhéroe
+     * Solicita y valida una opción seleccionada por el usuario.
      *
-     * Solicita al usuario datos de un superhéro, ya se para agregar o
-     * actualizar un superhéroe
-     *
-     * @param entrada Entrada de datos
-     * @param superHeroe objeto de la clase SuperHeroe
+     * @param entrada entrada de datos
+     * @param mensaje mensaje que se mostrará al usuario
+     * @param opciones lista de opciones permitidas
+     * @return opción válida seleccionada por el usuario
      */
-    public static void solicitarDatosSuperHeroe(Scanner entrada, Superheroe superHeroe) {
-        // Variable
-        String nombHeroico;
-        String nombReal;
-        String poderPrincipal;
-        String nivel;
-        String estado;
-        double salarioMensual;
+    public static String solicitarOpcion(
+            Scanner entrada, String mensaje, String... opciones) {
 
-        String mensaje;
-
-        // Se solicita el nombre heroico
-        mensaje = "Nombre heroico";
-        nombHeroico = solicitarNombre(entrada, mensaje, 3);
-
-        // Asignamos el dato al superhéroe
-        superHeroe.setNombreHeroico(nombHeroico);
-
-        // Se solicita el nombre real
-        mensaje = "Nombre real";
-        nombReal = solicitarNombre(entrada, mensaje, 3);
-
-        // Asignamos el dato al superhéroe
-        superHeroe.setNombreReal(nombReal);
-
-        //Se solicita el poder principal
         do {
-            System.out.print("Poder principal (Fuerza, Velocidad, Tecnología, Magia, Control elemental): ");
-            // Recibimos el poder elegido por el usuario
-            poderPrincipal = entrada.nextLine();
-            // Se establece en minúscula el poder digitado por el usuario para validar
-            poderPrincipal = poderPrincipal.toLowerCase();
-            // Validamos que el poder ingresado por el usuario sea válido
-            switch (poderPrincipal) {
-                // Opciones válidas
-                case "fuerza":
-                case "velocidad":
-                case "tecnología":
-                case "magia":
-                case "control elemental":
-                    // Salimos del switch ya que valida la opción válida
-                    break;
-                default:
-                    System.out.println("\n¡Poder inválido! Intentalo de nuevo\n");
-                    // Repetimos el bucle do/while 
-                    continue;
-            }
-            // Salimos del bucle una vez validada la opción elegida del usuario
-            break;
-        } while (true);
+            System.out.print(mensaje + " ("
+                    + String.join(", ", opciones) + "): ");
 
-        // Asignamos el dato al superhéroe
-        superHeroe.setPoder(poderPrincipal);
+            String respuesta = entrada.nextLine().trim();
 
-        // Se solicita el nivel de experiencia
-        do {
-            System.out.print("Nivel (Novato, Intermedio, Élite): ");
-            // Recibimos el nivel elegido por el usuario
-            nivel = entrada.nextLine();
-            // Se establece en minúscula el poder digitado por el usuario para validar
-            nivel = nivel.toLowerCase();
-            // Validamos que el nivel elegido por el usuario sea válido
-            switch (nivel) {
-                // Opciones válidas
-                case "novato":
-                case "intermedio":
-                case "élite":
-                    // Salimos del switch ya que valida la opción válida
-                    break;
-                default:
-                    System.out.println("\n¡Nivel inválido! Intentalo de nuevo.\n");
-                    // Repetimos el bucle do/while 
-                    continue;
-            }
-            // Salimos del bucle una vez validada la opción elegida del usuario            
-            break;
-        } while (true);
-
-        // Asignamos el dato al superhéroe
-        superHeroe.setExperiencia(nivel);
-
-        // Se solicita el estado
-        do {
-            System.out.print("Estado (Disponible, En misión, Recuperación): ");
-            // Recibimos el estado elegido por el usuario
-            estado = entrada.nextLine();
-            // Se establece en minúscula el estado digitado por el usuario para validar
-            estado = estado.toLowerCase();
-            // Validamos que el estado ingresado por el usuario sea válido
-            switch (estado) {
-                // Opciones válidas
-                case "disponible":
-                case "en misión":
-                case "recuperación":
-                    // Salimos del switch ya que valida la opción válida
-                    break;
-                default:
-                    System.out.println("\n¡Estado inválido! Intentalo de nuevo.\n");
-                    // Repetimos el bucle do/while 
-                    continue;
-            }
-            // Salimos del bucle una vez validada la opción elegida del usuario            
-            break;
-        } while (true);
-
-        // Asignamos el dato al superhéroe
-        superHeroe.setEstado(estado);
-
-        // Se solicita el salario mensual
-        do {
-            System.out.print("Salario mensual ($): ");
-            // Try-Catch para validar que el dato ingresado sea el esperado
-            try {
-                // Recibimos el salario mensual que establece el usuario
-                salarioMensual = entrada.nextDouble();
-
-                // Validamos que el monto ingresado sea mayor a cero
-                if (salarioMensual > 0.0) {
-                    break;
-                } else {
-                    System.out.println("¡Salario Inválido! Ingrese un monto mayor a cero");
+            for (String opcion : opciones) {
+                if (respuesta.equalsIgnoreCase(opcion)) {
+                    return opcion;
                 }
-            } catch (Exception e) {
-                System.out.println("\n¡Salario Inválido! Intente de nuevo\n");
             }
+
+            System.out.println(
+                    "\n¡Opción inválida! Seleccione una de las opciones indicadas.\n"
+            );
+
         } while (true);
-
-        // Asignamos el dato al superhéroe
-        superHeroe.setSalarioMensual(salarioMensual);
-
-        // Limpiamos el buffer residual
-        entrada.nextLine();
-    }
-
-    public static void solicitarDatosEquipoRescate(Scanner entrada, EquipoRescate equipoRescate) {
-
     }
 
     /**
@@ -532,7 +417,6 @@ public class NelsonAcuna_Proyecto1 {
      * @param entrada Entrada de datos por teclado
      * @param superHeroes lista de superhéroes actual
      * @param idSuperHeroe id suministrado por el usuario
-     * @param encontrado notifica al usuario si encontró o no el ID
      *
      * @return retorna la posición del superhéroe dentro de la lista
      */
@@ -585,6 +469,148 @@ public class NelsonAcuna_Proyecto1 {
 
     }
 
+    /**
+     * Solicita datos de un superhéroe
+     *
+     * Solicita al usuario datos de un superhéro, ya se para agregar o
+     * actualizar un superhéroe
+     *
+     * @param entrada Entrada de datos
+     * @param superHeroe objeto de la clase SuperHeroe
+     */
+    public static void solicitarDatosSuperHeroe(Scanner entrada, Superheroe superHeroe) {
+        // Variable
+        double salarioMensual;
+
+        String mensaje;
+
+        // Se solicita el nombre heroico
+        mensaje = "Nombre heroico";
+        // Asignamos el dato al superhéroe
+        superHeroe.setNombreHeroico(solicitarNombre(entrada, mensaje, 3));
+
+        // Se solicita el nombre real
+        mensaje = "Nombre real";
+        // Asignamos el dato al superhéroe
+        superHeroe.setNombreReal(solicitarNombre(entrada, mensaje, 3));
+
+        // Se solicita el poder principal
+        mensaje = "Poder principal";
+        // Asignamos el dato al superhéroe        
+        superHeroe.setPoder(solicitarOpcion(entrada, mensaje, "Fuerza", "Velocidad", "Tecnología", "Magia", "Telepatía"));
+
+        // Se solicita el nivel de experiencia
+        mensaje = "Nivel";
+        // Asignamos el dato al superhéroe
+        superHeroe.setExperiencia(solicitarOpcion(entrada, mensaje, "Novato", "Intermedio", "Élite"));
+
+        // Se solicita el estado
+        mensaje = "Estado";
+        // Asignamos el dato al superhéroe
+        superHeroe.setEstado(solicitarOpcion(entrada, mensaje, "Disponible", "En misión", "Recuperación"));
+
+        // Se solicita el salario mensual
+        do {
+            System.out.print("Salario mensual ($): ");
+            // Try-Catch para validar que el dato ingresado sea el esperado
+            try {
+                // Recibimos el salario mensual que establece el usuario
+                salarioMensual = entrada.nextDouble();
+
+                // Validamos que el monto ingresado sea mayor a cero
+                if (salarioMensual > 0.0) {
+                    break;
+                } else {
+                    System.out.println("¡Salario Inválido! Ingrese un monto mayor a cero");
+                }
+            } catch (Exception e) {
+                System.out.println("\n¡Salario Inválido! Intente de nuevo\n");
+                // Descartamos el buffer de entrada erróneo.
+                entrada.nextLine();
+            }
+        } while (true);
+
+        // Asignamos el dato al superhéroe
+        superHeroe.setSalarioMensual(salarioMensual);
+
+        // Limpiamos el buffer residual
+        entrada.nextLine();
+    }
+
+    public static void solicitarDatosEquipoRescate(Scanner entrada, EquipoRescate equipoRescate, ArrayList<Superheroe> superHeroes) {
+        // Variable
+        String mensaje;
+        String idHeroesEquipo;
+        String[] heroesEquipo;
+        ArrayList<Superheroe> superHeroesEquipo = new ArrayList<>();
+
+        // Se solicita el nombre del equipo        
+        mensaje = "Nombre del equipo";
+        equipoRescate.setNombreEquipo(solicitarNombre(entrada, mensaje, 3));
+
+        //Se solicita el tipo de emergencia
+        mensaje = "Tipo de emergencia";
+        // Asignamos el dato al EquipoRescate  
+        equipoRescate.setTipoEmergencia(solicitarOpcion(entrada, mensaje, "Desastres naturales", "Invasión alienígena", "Amenaza nuclear", "Villano de alto riesgo"));
+
+        //Se solicita el nivel de amenaza
+        mensaje = "Nivel de amenaza";
+        // Asignamos el dato al EquipoRescate  
+        equipoRescate.setNivelAmenaza(solicitarOpcion(entrada, mensaje, "Bajo", "Medio", "Alto"));
+
+        //Se solicita la ciudad a designar el equipo
+        mensaje = "Ciudad asignada";
+        // Asignamos el dato al EquipoRescate  
+        equipoRescate.setCiudadAsignada(solicitarNombre(entrada, mensaje, 3));
+
+        //Se solicita validar el uso de tecnología
+        mensaje = "Usa tecnología especial";
+        // Asignamos el dato al EquipoRescate  
+        if (respuestaSiNo(entrada, mensaje)) {
+            equipoRescate.setUsoTecnologiaEspecial("Sí");
+        } else {
+            equipoRescate.setUsoTecnologiaEspecial("No");
+        }
+
+        System.out.println("-".repeat(6) + " SELECCIONE LOS SUPERHÉROES PARA EL EQUIPO " + "-".repeat(6));
+        System.out.println("(Ingrese los ID separados por coma)");
+        System.out.print("ID de superhéroes: ");
+        // Recibimos lo héroes que formarán parte del equipo
+        idHeroesEquipo = entrada.nextLine();
+        // Separamos los ID ingresados a un arreglo String
+        heroesEquipo = idHeroesEquipo.split(",");
+
+        for (String idHeroe : heroesEquipo) {
+            // Contiene la posisión del superhéroe dentro de la lista de superhéroes
+            int posIndexSuperHeroe;
+
+            //Buscamos el ID de superhéroe dentro de la lista de superhéroes
+            posIndexSuperHeroe = buscadorIdHeroes(entrada, superHeroes, idHeroe);
+
+            // Validamos que se encontró el ID del superhéro buscado
+            if (posIndexSuperHeroe == -1) {
+                System.out.println("\n¡No se encontró el ID: !" + idHeroe + "\n");
+                // Repetimos el proceso de buscar un ID
+                continue;
+            }
+
+            // Agregamos el superhéroe al equipo 
+            superHeroesEquipo.add(superHeroes.get(posIndexSuperHeroe));
+        } // Fin del for
+        
+        // Imprimimos la cantidad de superhéroes que se añadieron al equipo
+        System.out.println("Superhéroes agregados: " + superHeroesEquipo.size());
+        
+        //Añadimos el equipo de superhéroes al equipo correspondiente
+        equipoRescate.setListaSuperheroes(superHeroesEquipo);
+        
+        //Se calcula el costo operativo del equipo de rescate
+        equipoRescate.calcularCostoOperativo();
+        // Se muestra el costo operativo del equipo de rescate
+        System.out.println("Costo operativo calculado: $" + formatoMonetario(equipoRescate.getCostoOperativo()));
+
+    }
+
     //Métodos del Módulo de Gestión de Superhéroes
     /**
      * Agrega un nuevo superhéroe o actualiza su información
@@ -597,7 +623,6 @@ public class NelsonAcuna_Proyecto1 {
      * @param superHeroes Lista de superhéroes
      */
     public static void agregarSuperHeroe(Scanner entrada, ArrayList<Superheroe> superHeroes) {
-
         do {
             // Creamos un nuevo superhéroe
             Superheroe superHeroe = new Superheroe();
@@ -835,8 +860,43 @@ public class NelsonAcuna_Proyecto1 {
     }
 
     //Métodos del Módulo de Gestioón de Equipos de Rescate
-    public static void agregarEquipo() {
+    public static void agregarEquipo(Scanner entrada, ArrayList<Superheroe> superHeroes, ArrayList<EquipoRescate> equiposRescate) {
+        
 
+        //Validamos que la lista de superhéroes no esté vacia
+        if (superHeroes.isEmpty()) {
+            System.out.println("\n¡Lista vacía! Agrega un superhéroe para continuar\n");
+            //Regresamos al menú
+            return;
+        }
+        
+        do {   
+            // Creamos un nuevo equipo de rescate
+            EquipoRescate equipoRescate = new EquipoRescate();
+            
+            // Encabezado
+            System.out.println("-".repeat(14) + " AGREGAR EQUIPO DE RESCATE " + "-".repeat(14));
+            
+            // Se genera el ID del equipo
+            equipoRescate.generadorIdEquipo();
+
+            //Muesta el nuevo ID del equipo de rescate a registrar
+            System.out.println("ID generado: " + equipoRescate.getIdEquipo());
+
+            // Solicitamos la información del equipo de rescate
+            solicitarDatosEquipoRescate(entrada, equipoRescate, superHeroes);
+
+            // Agregamos el equipo de rescate a la lista de equipos de rescate
+            equiposRescate.add(equipoRescate);
+
+            // Notificamos al usuario que se registró correctamente
+            System.out.println("\n¡Equipo registrado correctamente!");
+
+            String pregunta = "Deseas agregar otro equipo de rescate";
+            if (!respuestaSiNo(entrada, pregunta)) {
+                break;
+            }
+        } while (true);
     }
 
     public static void actualizarEquipo() {
