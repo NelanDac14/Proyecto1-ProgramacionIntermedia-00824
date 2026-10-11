@@ -164,8 +164,38 @@ public class EquipoRescate {
      * esta manera el costo operativo del equipo.
      */
     public void calcularCostoOperativo(){
+        
+        // Suma de los salarios de todos los superhéroes pertenecientes al equipo
         for(Superheroe superHeroe : listaSuperheroes){
             costoOperativo += superHeroe.getSalarioMensual();
+        }
+        
+        //Costo adicional según nivel de amenaza
+        switch (nivelAmenaza.toLowerCase()) {
+            case "bajo": // Sumar $5,000.00 al costo operativo
+                costoOperativo += 5000;
+                break;
+            case "medio": // Sumar $15,000.00 al costo operativo
+                costoOperativo += 15000;                
+                break;
+            case "alto": // Sumar $30,000.00 al costo operativo
+                costoOperativo += 30000;                
+                break;
+            default:
+                // No aplicamos ningún valor adicional al costo operativo
+                break;
+        }
+        
+        // Costo adicional en caso de utilizar tecnología especial
+        if(usoTecnologiaEspecial.toLowerCase().equals("sí")){
+            // Sumar $10,000.00 al costo operativo
+            costoOperativo += 10000;
+        }
+        
+        // Costo adicional por más de 5 superhéroes en el equipo
+        if(listaSuperheroes.size() > 5){
+            // Sumar $8,000.00  al costo operativo
+            costoOperativo += 8000;
         }
     }
     
