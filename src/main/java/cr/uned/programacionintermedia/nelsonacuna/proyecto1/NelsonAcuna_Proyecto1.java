@@ -149,6 +149,7 @@ public class NelsonAcuna_Proyecto1 {
                                 actualizarEquipo(scannerEntrada, superHeroes, equiposRescate);
                                 break;
                             case 3: // Eliminar equipo
+                                eliminarEquipo(scannerEntrada, equiposRescate);
                                 break;
                             case 4: // Regresar al menú principal
                                 continuar = false;
@@ -643,7 +644,7 @@ public class NelsonAcuna_Proyecto1 {
         heroesEquipo = idHeroesEquipo.split(",");
 
         // Recorremo el arreglo heroesEquipo para agregarlo al arreglo de superhéroes del equipo
-        for (String idHeroe : heroesEquipo) {            
+        for (String idHeroe : heroesEquipo) {
             // Contiene la posisión del superhéroe dentro de la lista de superhéroes
             int posIndexSuperHeroe;
 
@@ -656,14 +657,14 @@ public class NelsonAcuna_Proyecto1 {
                 // Repetimos el proceso de buscar un ID
                 continue;
             }
-            
+
             // Validamos que el superhéro a agregar no se duplique dentro de la lista del equipo
-            if(buscadorIdHeroes(superHeroesEquipo, idHeroe.trim().toUpperCase()) != -1){
+            if (buscadorIdHeroes(superHeroesEquipo, idHeroe.trim().toUpperCase()) != -1) {
                 // El superhéroe ya está registrado dentro del equipo
                 System.out.println("\nEl superhéroe con el ID: " + idHeroe + " ya se encuentra en el equipo");
                 continue;
-            }            
-            
+            }
+
             // Agregamos el superhéroe al equipo 
             superHeroesEquipo.add(superHeroes.get(posIndexSuperHeroe));
         } // Fin del for
@@ -906,9 +907,9 @@ public class NelsonAcuna_Proyecto1 {
                 System.out.println("\nEl superhéroe fue eliminado correctamente\n");
 
                 //Preguntamos si desea eliminar a otro superhéroe
-                pregunta = "Deseas regresar al menú principal";
-                if (respuestaSiNo(entrada, pregunta)) {
-                    // Regresamos al menú principal
+                pregunta = "Deseas eliminar a otro superhéroe";
+                if (!respuestaSiNo(entrada, pregunta)) {
+                    // Regresamos al menú anterior
                     return;
                 }
 
@@ -918,6 +919,16 @@ public class NelsonAcuna_Proyecto1 {
     }
 
     //Métodos del Módulo de Gestioón de Equipos de Rescate
+    /**
+     * Agregar nuevo equipo
+     *
+     * Agrega un nuevo equipo de rescate a la lista con la información
+     * correspondien y los superhéroes que conforman el equipo
+     *
+     * @param entrada Entrada de datos
+     * @param superHeroes Lista de superhéroes actualizada
+     * @param equiposRescate Lista de equipos de rescate actualizada
+     */
     public static void agregarEquipo(Scanner entrada, ArrayList<Superheroe> superHeroes, ArrayList<EquipoRescate> equiposRescate) {
 
         //Validamos que la lista de superhéroes no esté vacia
@@ -958,9 +969,9 @@ public class NelsonAcuna_Proyecto1 {
 
     /**
      * Actualizar equipo de rescate
-     * 
+     *
      * Actualiza un equipo de rescate mediante el ID del equipo.
-     * 
+     *
      * @param entrada Entrada de datos
      * @param superHeroes Lista actualizada de superhéroes
      * @param equiposRescate Lista actualizada de equipos de rescate
@@ -996,16 +1007,16 @@ public class NelsonAcuna_Proyecto1 {
                 // Repetimos el proceso de buscar un ID
                 continue;
             }
-            
+
             // Se agrega la información del correspondiente al equipo de rescate solicitado
             equipoRescate = equiposRescate.get(posIndexEquipoRescate);
-            
+
             // Solicitamos los datos actualizados del equipo de rescate
             solicitarDatosEquipoRescate(entrada, equipoRescate, superHeroes);
-            
+
             // Actualizamos el equipo de rescate
             equiposRescate.set(posIndexEquipoRescate, equipoRescate);
-            
+
             String pregunta = "Deseas actualizar a otro equipo de rescate";
 
             // Si responde que no, sale al menú de Gestión de equipos de rescate
@@ -1016,8 +1027,59 @@ public class NelsonAcuna_Proyecto1 {
         } while (true);
     }
 
-    public static void eliminarEquipo() {
+    public static void eliminarEquipo(Scanner entrada, ArrayList<EquipoRescate> equiposRescate) {
+        do {
+            // Validamos que la lista de equipos de rescate no esté vacía
+            if (equiposRescate.isEmpty()) {
+                System.out.println("¡Lista vacía! Agrega un equipo de rescate para continuar");
+                // Regresamos al menú
+                return;
+            }
 
+            // Variables
+            String idEquipoRescate;
+            String pregunta;
+            int posIndexEquipoRescate;
+
+            // Creamos un nuevo equipo de rescate
+            EquipoRescate equipoRescate;
+
+            // Encabezado
+            System.out.println("-".repeat(13) + " ELIMINAR EQUIPO DE RESCATE " + "-".repeat(14));
+
+            // Solicitamos el ID del equipo de rescate
+            System.out.print("Ingrese el ID del equipo de rescate: ");
+            idEquipoRescate = entrada.nextLine();
+
+            // Busca el ID del equipo de rescate dentro de la lista actual de equipos
+            posIndexEquipoRescate = buscadorIdEquipoRescate(equiposRescate, idEquipoRescate);
+
+            // Validamos que se encontró el ID del equipo de rescate buscado
+            if (posIndexEquipoRescate == -1) {
+                System.out.println("\n¡No se encontró el equipo de rescate solicitado! Intentelo de nuevo\n");
+                // Repetimos el proceso de buscar un ID
+                continue;
+            }
+
+            // Se agrega la información correspondiente del equipo de rescate solicitado
+            equipoRescate = equiposRescate.get(posIndexEquipoRescate);
+
+            // Preguntamos al usuario si realmente desea eliminarlo
+            pregunta = "Deseas eliminar al equipo: " + equipoRescate.getIdEquipo() + " | " + equipoRescate.getNombreEquipo();
+            // Validamos la respuesta del usuario
+            if (respuestaSiNo(entrada, pregunta)) {
+                // Se elimina el equipo de rescate
+                equiposRescate.remove(posIndexEquipoRescate);
+                System.out.println("\nEl equipo de rescate fue eliminado correctamente\n");
+
+                //Preguntamos si desea elimiar otro equipo de rescate
+                pregunta = "Deseas eliminar otro equipo de rescate";
+                if (!respuestaSiNo(entrada, pregunta)) {
+                    // Regresamos al menú anterior
+                    return;
+                }
+            }
+        } while (true);
     }
 
     //Métodos del Módulo de Reportes
