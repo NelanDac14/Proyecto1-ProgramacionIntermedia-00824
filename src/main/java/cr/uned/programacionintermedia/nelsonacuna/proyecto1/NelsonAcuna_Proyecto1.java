@@ -956,6 +956,15 @@ public class NelsonAcuna_Proyecto1 {
         } while (true);
     }
 
+    /**
+     * Actualizar equipo de rescate
+     * 
+     * Actualiza un equipo de rescate mediante el ID del equipo.
+     * 
+     * @param entrada Entrada de datos
+     * @param superHeroes Lista actualizada de superhéroes
+     * @param equiposRescate Lista actualizada de equipos de rescate
+     */
     public static void actualizarEquipo(Scanner entrada, ArrayList<Superheroe> superHeroes, ArrayList<EquipoRescate> equiposRescate) {
         //Validamos que la lista de equipos de rescate no esté vacia
         if (equiposRescate.isEmpty()) {
