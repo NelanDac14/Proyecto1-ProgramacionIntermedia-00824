@@ -160,10 +160,13 @@ public class EquipoRescate {
      * Calcula el costo operativo del equipo de rescate
      * 
      * En base a la lista de superhéroes asignada, toma los 
-     * salarios mensuales de estos, sumandolos obteniendo de 
-     * esta manera el costo operativo del equipo.
+     * salarios mensuales de estos, añadiendo valor adicional según 
+     * nivel de amenaza, si este utiliza tecnología y en caso de
+     * que el grupo poseea más de 5 superhéroes.
      */
     public void calcularCostoOperativo(){
+        // Se reinicializa el costo para no acumular resultados
+        costoOperativo = 0.0;
         
         // Suma de los salarios de todos los superhéroes pertenecientes al equipo
         for(Superheroe superHeroe : listaSuperheroes){
@@ -187,7 +190,7 @@ public class EquipoRescate {
         }
         
         // Costo adicional en caso de utilizar tecnología especial
-        if(usoTecnologiaEspecial.toLowerCase().equals("sí")){
+        if(usoTecnologiaEspecial.equalsIgnoreCase("sí")){
             // Sumar $10,000.00 al costo operativo
             costoOperativo += 10000;
         }

@@ -146,6 +146,7 @@ public class NelsonAcuna_Proyecto1 {
                                 agregarEquipo(scannerEntrada, superHeroes, equiposRescate);
                                 break;
                             case 2: // Actualizar equipo
+                                actualizarEquipo(scannerEntrada, superHeroes, equiposRescate);
                                 break;
                             case 3: // Eliminar equipo
                                 break;
@@ -418,33 +419,51 @@ public class NelsonAcuna_Proyecto1 {
      *
      * Busca un superhéroe por su ID, digitado por el usuario
      *
-     * @param entrada Entrada de datos por teclado
      * @param superHeroes lista de superhéroes actual
      * @param idSuperHeroe id suministrado por el usuario
      *
      * @return retorna la posición del superhéroe dentro de la lista
      */
-    public static int buscadorIdHeroes(Scanner entrada, ArrayList<Superheroe> superHeroes, String idSuperHeroe) {
+    public static int buscadorIdHeroes(ArrayList<Superheroe> superHeroes, String idSuperHeroe) {
         do {
+            // Buscamos que el ID exista dentro
+            for (Superheroe superHeroe : superHeroes) {
 
-            // Visualizamos que el usuario no haya ingresado dato en blanco
-            if (!idSuperHeroe.isEmpty()) {
+                // Comparamos el ID enviado del usuario con el de las lista hasta encontrárlo
+                if (superHeroe.getIdHeroe().equals(idSuperHeroe)) {
+                    // Obtenemos la poscición del superhéroe a eliminar dentro del ArrayList
+                    return superHeroes.indexOf(superHeroe);
 
-                // Buscamos que el ID exista dentro
-                for (Superheroe superHeroe : superHeroes) {
-
-                    // Comparamos el ID enviado del usuario con el de las lista hasta encontrárlo
-                    if (superHeroe.getIdHeroe().equals(idSuperHeroe)) {
-                        // Obtenemos la poscición del superhéroe a eliminar dentro del ArrayList
-                        return superHeroes.indexOf(superHeroe);
-
-                    }
                 }
-                // No se encontró el ID del superhéroe
-                return -1;
-            } else {
-                System.out.println("Debes ingresar un ID válido para continuar");
             }
+            // No se encontró el ID del superhéroe
+            return -1;
+        } while (true);
+    }
+
+    /**
+     * Buscador por ID de equipos de rescate
+     *
+     * Busca un equipo de rescate por su ID, digitado por el usuario
+     *
+     * @param equiposRescate lista de equipos de rescate actual
+     * @param idEquipoRescate id suministrado por el usuario
+     *
+     * @return retorna la posición del superhéroe dentro de la lista
+     */
+    public static int buscadorIdEquipoRescate(ArrayList<EquipoRescate> equiposRescate, String idEquipoRescate) {
+        // Visualizamos que el usuario no haya ingresado dato en blanco           
+        do {
+            // Buscamos que el ID exista dentro
+            for (EquipoRescate equipoRescate : equiposRescate) {
+                // Comparamos el ID enviado del usuario con el de las lista hasta encontrárlo
+                if (equipoRescate.getIdEquipo().equals(idEquipoRescate)) {
+                    // Obtenemos la poscición del equipo de rescate a retornar dentro del ArrayList
+                    return equiposRescate.indexOf(equipoRescate);
+                }
+            }
+            // No se encontró el ID del superhéroe
+            return -1;
         } while (true);
     }
 
@@ -623,12 +642,13 @@ public class NelsonAcuna_Proyecto1 {
         // Separamos los ID ingresados a un arreglo String
         heroesEquipo = idHeroesEquipo.split(",");
 
-        for (String idHeroe : heroesEquipo) {
+        // Recorremo el arreglo heroesEquipo para agregarlo al arreglo de superhéroes del equipo
+        for (String idHeroe : heroesEquipo) {            
             // Contiene la posisión del superhéroe dentro de la lista de superhéroes
             int posIndexSuperHeroe;
 
             //Buscamos el ID de superhéroe dentro de la lista de superhéroes
-            posIndexSuperHeroe = buscadorIdHeroes(entrada, superHeroes, idHeroe.trim().toUpperCase());
+            posIndexSuperHeroe = buscadorIdHeroes(superHeroes, idHeroe.trim().toUpperCase());
 
             // Validamos que se encontró el ID del superhéro buscado
             if (posIndexSuperHeroe == -1) {
@@ -636,7 +656,14 @@ public class NelsonAcuna_Proyecto1 {
                 // Repetimos el proceso de buscar un ID
                 continue;
             }
-
+            
+            // Validamos que el superhéro a agregar no se duplique dentro de la lista del equipo
+            if(buscadorIdHeroes(superHeroesEquipo, idHeroe.trim().toUpperCase()) != -1){
+                // El superhéroe ya está registrado dentro del equipo
+                System.out.println("\nEl superhéroe con el ID: " + idHeroe + " ya se encuentra en el equipo");
+                continue;
+            }            
+            
             // Agregamos el superhéroe al equipo 
             superHeroesEquipo.add(superHeroes.get(posIndexSuperHeroe));
         } // Fin del for
@@ -725,7 +752,7 @@ public class NelsonAcuna_Proyecto1 {
             System.out.print("Ingrese el ID del Superhéroe: ");
             idSuperHeroe = entrada.nextLine();
             // Buscamos al superhéroe que deseamos actualizar
-            posIndexSuperHeroe = buscadorIdHeroes(entrada, superHeroes, idSuperHeroe);
+            posIndexSuperHeroe = buscadorIdHeroes(superHeroes, idSuperHeroe);
 
             // Validamos que se encontró el ID del superhéro buscado
             if (posIndexSuperHeroe == -1) {
@@ -790,7 +817,7 @@ public class NelsonAcuna_Proyecto1 {
             idSuperHeroe = entrada.nextLine();
 
             // Busca el ID del héroe dentro de la lista de héroes actual
-            posIndexSuperHeroe = buscadorIdHeroes(entrada, superHeroes, idSuperHeroe);
+            posIndexSuperHeroe = buscadorIdHeroes(superHeroes, idSuperHeroe);
 
             // Validamos que se encontró el ID del superhéro buscado
             if (posIndexSuperHeroe == -1) {
@@ -842,8 +869,8 @@ public class NelsonAcuna_Proyecto1 {
             }
 
             // Variables
-            String idSuperHeroe = "";
-            String pregunta = "";
+            String idSuperHeroe;
+            String pregunta;
             int posIndexSuperHeroe;
 
             // Creamos un nuevo superhéroe
@@ -856,7 +883,7 @@ public class NelsonAcuna_Proyecto1 {
             idSuperHeroe = entrada.nextLine();
 
             // Busca el ID del héroe dentro de la lista de héroes actual
-            posIndexSuperHeroe = buscadorIdHeroes(entrada, superHeroes, idSuperHeroe);
+            posIndexSuperHeroe = buscadorIdHeroes(superHeroes, idSuperHeroe);
 
             // Validamos que se encontró el ID del superhéro buscado
             if (posIndexSuperHeroe == -1) {
@@ -929,8 +956,55 @@ public class NelsonAcuna_Proyecto1 {
         } while (true);
     }
 
-    public static void actualizarEquipo() {
+    public static void actualizarEquipo(Scanner entrada, ArrayList<Superheroe> superHeroes, ArrayList<EquipoRescate> equiposRescate) {
+        //Validamos que la lista de equipos de rescate no esté vacia
+        if (equiposRescate.isEmpty()) {
+            System.out.println("\n¡Lista vacía! Agrega un equipo de rescate para continuar\n");
+            //Regresamos al menú
+            return;
+        }
 
+        do {
+            // Variables
+            String idEquipoRescate;
+            int posIndexEquipoRescate;
+            //Creamos un equipo de rescate
+            EquipoRescate equipoRescate;
+
+            //Encabezado
+            System.out.println("-".repeat(6) + " ACTUALIZAR DATOS DE UN EQUIPO DE RESCATE " + "-".repeat(7));
+
+            // Solicitamos el ID del equipo de rescate
+            System.out.print("Ingrese el ID del equipo de rescate: ");
+            idEquipoRescate = entrada.nextLine();
+
+            // Buscamos el equipo de rescate que se desea actualizar
+            posIndexEquipoRescate = buscadorIdEquipoRescate(equiposRescate, idEquipoRescate);
+
+            // Validamos que se encontró el ID del equipo de rescate
+            if (posIndexEquipoRescate == -1) {
+                System.out.println("\n¡No se encontró el equipo de rescate solicitado! Intentelo de nuevo\n");
+                // Repetimos el proceso de buscar un ID
+                continue;
+            }
+            
+            // Se agrega la información del correspondiente al equipo de rescate solicitado
+            equipoRescate = equiposRescate.get(posIndexEquipoRescate);
+            
+            // Solicitamos los datos actualizados del equipo de rescate
+            solicitarDatosEquipoRescate(entrada, equipoRescate, superHeroes);
+            
+            // Actualizamos el equipo de rescate
+            equiposRescate.set(posIndexEquipoRescate, equipoRescate);
+            
+            String pregunta = "Deseas actualizar a otro equipo de rescate";
+
+            // Si responde que no, sale al menú de Gestión de equipos de rescate
+            if (!respuestaSiNo(entrada, pregunta)) {
+                // Salimos del do/while
+                break;
+            }
+        } while (true);
     }
 
     public static void eliminarEquipo() {
@@ -973,7 +1047,7 @@ public class NelsonAcuna_Proyecto1 {
         }
         do {
             // Variables
-            String idSuperHeroe = "";
+            String idSuperHeroe;
             String pregunta;
             int posIndexSuperHeroe;
             ArrayList<Superheroe> superHeroesEncontrados = new ArrayList<>();
@@ -986,7 +1060,7 @@ public class NelsonAcuna_Proyecto1 {
             idSuperHeroe = entrada.nextLine();
 
             // Busca el ID del héroe dentro de la lista de héroes actual
-            posIndexSuperHeroe = buscadorIdHeroes(entrada, superHeroes, idSuperHeroe);
+            posIndexSuperHeroe = buscadorIdHeroes(superHeroes, idSuperHeroe);
 
             // Validamos que se encontró el ID del superhéroe buscado
             if (posIndexSuperHeroe == -1) {
