@@ -43,7 +43,7 @@ public class NelsonAcuna_Proyecto1 {
          * https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/nio/charset/StandardCharsets.html
          */
         System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
-        
+
         cargarSuperheroesPrueba(superHeroes);
         cargarEquiposPrueba(superHeroes, equiposRescate);
 
@@ -198,11 +198,13 @@ public class NelsonAcuna_Proyecto1 {
                                 mostrarEquiposRescate(equiposRescate);
                                 break;
                             case 4: // Mostrar el equipo con mayor costo operativo
+                                equipoMayorCostoOperativo(equiposRescate);
                                 break;
                             case 5: // Buscar equipos por tipo de emergencia
                                 buscarEquipoTipoEmergencia(scannerEntrada, equiposRescate);
                                 break;
                             case 6: // Mostrar superhéroes con nivel Élite
+                                mostrarHeroeNivelElite(superHeroes);
                                 break;
                             case 7: // Mostrar cantidad de héroes según su estado
                                 break;
@@ -475,7 +477,7 @@ public class NelsonAcuna_Proyecto1 {
                         posHeroesEncontrados.add(superHeroes.indexOf(superHeroe));
 
                     }
-
+                    // Continuamos con la siguiente evaluación de dato
                     break;
                 case 2: // Busqueda por Nivel 
 
@@ -487,6 +489,8 @@ public class NelsonAcuna_Proyecto1 {
                         posHeroesEncontrados.add(superHeroes.indexOf(superHeroe));
 
                     }
+                    // Continuamos con la siguiente evaluación de dato
+                    break;
                 case 3: // Busqueda por Estado 
 
                     // Buscamos que el Estado exista dentro de la lista de superhéroes */
@@ -497,6 +501,8 @@ public class NelsonAcuna_Proyecto1 {
                         posHeroesEncontrados.add(superHeroes.indexOf(superHeroe));
 
                     }
+                    // Continuamos con la siguiente evaluación de dato
+                    break;
 
                 default:
                     // No se encontraron superhéroes
@@ -1334,6 +1340,15 @@ public class NelsonAcuna_Proyecto1 {
 
     }
 
+    /**
+     * Muestra el equipo con mayor costo operativo
+     *
+     * Recibe la lista de equipos de rescate actual y en base a sus costos
+     * operativos individuales, los compara y extrae el equipo que tiene menor
+     * costo operativo.
+     *
+     * @param equiposRescate Lista de equipos de rescate
+     */
     public static void equipoMayorCostoOperativo(ArrayList<EquipoRescate> equiposRescate) {
         //Validamos que la lista de equipos de rescate no esté vacia
         if (equiposRescate.isEmpty()) {
@@ -1342,19 +1357,40 @@ public class NelsonAcuna_Proyecto1 {
             return;
         }
         // Variables
-        // Encabezado
+        //Inicializo la variable con el costo operativo del primer equipo de rescate de la lista
+        double costoOperativoMayor = equiposRescate.get(0).getCostoOperativo();
 
+        EquipoRescate equipoMayorCosto = equiposRescate.get(0);
+        ArrayList<EquipoRescate> equiposMayorCosto = new ArrayList<>();
+
+        // Encabezado
+        System.out.println("-".repeat(10) + " EQUIPO CON MAYOR COSTO OPERATIVO " + "-".repeat(11) + "\n");
+
+        //Bucle que 
+        for (EquipoRescate equipoRescate : equiposRescate) {
+            if (equipoRescate.getCostoOperativo() > costoOperativoMayor) {
+                // Asignamos el nuevo valor mayor al costo operativo mayor que ocupamos
+                costoOperativoMayor = equipoRescate.getCostoOperativo();
+                // Asignamos el nuevo equipo con el mayor costo operativo
+                equipoMayorCosto = equipoRescate;
+            }
+        }
+
+        // Agregamos el equipo resultante de mayor costo al arreglo de equiposMayorCosto
+        equiposMayorCosto.add(equipoMayorCosto);
+
+        // Pasamos el arreglo de equiposMayorCosto y lo imprimimos
+        imprimirEquiposRescate(equiposMayorCosto);
     }
 
     /**
      * Busca equipos de rescate por tipo de emergencia
-     * 
-     * Permite buscar equipos de rescate según el tipo de emergencia
-     * que el usuario requiera de momento y los imprime en pantalla
-     * 
+     *
+     * Permite buscar equipos de rescate según el tipo de emergencia que el
+     * usuario requiera de momento y los imprime en pantalla
+     *
      * @param entrada Entrada de datos
-     * @param equiposRescate Lista de equipos de rescate que reciba para
-     * buscar
+     * @param equiposRescate Lista de equipos de rescate que reciba para buscar
      */
     public static void buscarEquipoTipoEmergencia(Scanner entrada, ArrayList<EquipoRescate> equiposRescate) {
         //Validamos que la lista de equipos de rescate no esté vacia
@@ -1390,15 +1426,45 @@ public class NelsonAcuna_Proyecto1 {
 
     }
 
-    public static void mostrarHeroeNivelElite() {
+    /**
+     * Mostrar superhéroes de nivel élite
+     * 
+     * Muestra en pantalla los superhéroes que tienen 
+     * el nivel de experiencia élite.
+     * 
+     * @param superHeroes Lista de superhéroes actuales 
+     */
+    public static void mostrarHeroeNivelElite(ArrayList<Superheroe> superHeroes) {
+        //Validamos que la lista de equipos de rescate no esté vacia
+        if (superHeroes.isEmpty()) {
+            System.out.println("\n¡Lista vacía! Agrega un equipo de rescate para continuar\n");
+            //Regresamos al menú
+            return;
+        }
+
+        ArrayList<Integer> posHeroesEncontrados;
+        ArrayList<Superheroe> heroesEncontrados = new ArrayList<>();
+
+        // Encabezado
+        System.out.println("\n" + "-".repeat(6) + " EQUIPOS DE RESCATE POR TIPO DE EMERGENCIA " + "-".repeat(6) + "\n");
+        // Asignamos el dato a buscar 
+        String nivelExperiencia = "Élite";
+
+        posHeroesEncontrados = buscadorHeroes(superHeroes, nivelExperiencia, 2);
+
+        for (int posHeroe : posHeroesEncontrados) {
+            // Agregamos el resultado al arreglo de equipos encontrados
+            heroesEncontrados.add(superHeroes.get(posHeroe));
+        }
+
+        imprimirSuperHeroes(heroesEncontrados);
     }
 
     public static void mostrarCantHeroesPorEstado() {
     }
-
-    public static void cantidadHeroesPorEstado() {
-    }
-
+    
+    
+    //Metodos de prueba para experimentos de funcionamiento no pertenecen al proyecto
     public static void cargarSuperheroesPrueba(ArrayList<Superheroe> superHeroes) {
 
         if (!superHeroes.isEmpty()) {
