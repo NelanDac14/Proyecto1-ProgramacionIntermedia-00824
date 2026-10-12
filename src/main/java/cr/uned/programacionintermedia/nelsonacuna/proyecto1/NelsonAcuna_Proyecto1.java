@@ -26,9 +26,7 @@ public class NelsonAcuna_Proyecto1 {
 
         // Creamos un ArrayList de SuperHeroes y de Equipos de Rescate para almacenarlos
         ArrayList<Superheroe> superHeroes = new ArrayList<>();
-        cargarSuperheroesPrueba(superHeroes);
         ArrayList<EquipoRescate> equiposRescate = new ArrayList<>();
-        cargarEquiposPrueba(superHeroes, equiposRescate);
 
         /**
          * Configura la salida estándar de la aplicación utilizando la
@@ -45,6 +43,9 @@ public class NelsonAcuna_Proyecto1 {
          * https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/nio/charset/StandardCharsets.html
          */
         System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
+        
+        cargarSuperheroesPrueba(superHeroes);
+        cargarEquiposPrueba(superHeroes, equiposRescate);
 
         Scanner scannerEntrada = new Scanner(System.in);
 
@@ -199,6 +200,7 @@ public class NelsonAcuna_Proyecto1 {
                             case 4: // Mostrar el equipo con mayor costo operativo
                                 break;
                             case 5: // Buscar equipos por tipo de emergencia
+                                buscarEquipoTipoEmergencia(scannerEntrada, equiposRescate);
                                 break;
                             case 6: // Mostrar superhéroes con nivel Élite
                                 break;
@@ -393,8 +395,7 @@ public class NelsonAcuna_Proyecto1 {
      * @param opciones lista de opciones permitidas
      * @return opción válida seleccionada por el usuario
      */
-    public static String solicitarOpcion(
-            Scanner entrada, String mensaje, String... opciones) {
+    public static String solicitarOpcion(Scanner entrada, String mensaje, String... opciones) {
 
         do {
             System.out.print(mensaje + " ("
@@ -440,6 +441,133 @@ public class NelsonAcuna_Proyecto1 {
             // No se encontró el ID del superhéroe
             return -1;
         } while (true);
+    }
+
+    /**
+     * Buscador de superhéroes
+     *
+     * Busca un superhéroe por un dato sumistrado por el usuario
+     *
+     * @param superHeroes Lista de superhéroes actual
+     * @param buscarDato Dato que el usuario ingresa para buscar según el tipo
+     * de búsqueda
+     * @param tipoBusqueda Tipo de búsqueda que se desea raealizar por: Poder,
+     * Nivel o Estado en orden 1, 2 o 3.
+     *
+     * Ejemplo: 1- Busca por Poder 2- Busca por Nivel 3- Busca por Estado
+     *
+     * @return retorna las posiciones de los superhéroes dentro de la lista que
+     * cumplan con el dato a buscar
+     */
+    public static ArrayList<Integer> buscadorHeroes(ArrayList<Superheroe> superHeroes, String buscarDato, int tipoBusqueda) {
+        // Variables necesarias
+        ArrayList<Integer> posHeroesEncontrados = new ArrayList<>();
+
+        for (Superheroe superHeroe : superHeroes) {
+            switch (tipoBusqueda) {
+                case 1: // Busqueda por Poder 
+
+                    // Buscamos que el Poder exista dentro de la lista de superhéroes */
+                    // Comparamos el Poder enviado del usuario con el de las lista hasta encontrárlo
+                    if (superHeroe.getPoder().equalsIgnoreCase(buscarDato.trim())) {
+                        /* Obtenemos la poscición del superhéroe encontrado dentro de la lista de superhéroes
+                            y lo añadimos a la lista de superhéroes encontrados*/
+                        posHeroesEncontrados.add(superHeroes.indexOf(superHeroe));
+
+                    }
+
+                    break;
+                case 2: // Busqueda por Nivel 
+
+                    // Buscamos que el Nivel exista dentro de la lista de superhéroes */
+                    // Comparamos el Nivel enviado del usuario con el de las lista hasta encontrárlo
+                    if (superHeroe.getExperiencia().equalsIgnoreCase(buscarDato.trim())) {
+                        /* Obtenemos la poscición del superhéroe encontrado dentro de la lista de superhéroes
+                            y lo añadimos a la lista de superhéroes encontrados*/
+                        posHeroesEncontrados.add(superHeroes.indexOf(superHeroe));
+
+                    }
+                case 3: // Busqueda por Estado 
+
+                    // Buscamos que el Estado exista dentro de la lista de superhéroes */
+                    // Comparamos el Estado enviado del usuario con el de las lista hasta encontrárlo
+                    if (superHeroe.getEstado().equalsIgnoreCase(buscarDato.trim())) {
+                        /* Obtenemos la poscición del superhéroe encontrado dentro de la lista de superhéroes
+                            y lo añadimos a la lista de superhéroes encontrados*/
+                        posHeroesEncontrados.add(superHeroes.indexOf(superHeroe));
+
+                    }
+
+                default:
+                    // No se encontraron superhéroes
+                    return posHeroesEncontrados;
+            } // Fin del swift
+        } // Fin del bucle for
+
+        // Ya se recorrio toda la lista, retornamos lo encontrado
+        return posHeroesEncontrados;
+    }
+
+    /**
+     * Buscador de equipos de rescate
+     *
+     * Busca un equipo de rescate por un dato sumistrado por el usuario
+     *
+     * @param equiposRescate Lista de equipos de rescate actual
+     * @param buscarDato Dato que el usuario ingresa para buscar según el tipo
+     * de búsqueda
+     * @param tipoBusqueda Tipo de búsqueda que se desea raealizar por ejemplo:
+     * 1- Busca por Tipo de emergencia 2- Busca por Nivel de amenaza 3- Busca
+     * por Uso de tecnología
+     *
+     * @return retorna las posiciones de los superhéroes dentro de la lista que
+     * cumplan con el dato a buscar
+     */
+    public static ArrayList<Integer> buscadorEquiposRescate(ArrayList<EquipoRescate> equiposRescate, String buscarDato, int tipoBusqueda) {
+        // Variables necesarias
+        ArrayList<Integer> posEquiposEncontrados = new ArrayList<>();
+
+        for (EquipoRescate equipoRescate : equiposRescate) {
+            switch (tipoBusqueda) {
+                case 1: // Busca por Tipo de emergencia 
+
+                    // Comparamos el tipo de emergencia enviado del usuario con el de las lista hasta encontrárlo
+                    if (equipoRescate.getTipoEmergencia().equalsIgnoreCase(buscarDato.trim())) {
+                        /* Obtenemos la poscición del equipo de rescate encontrado dentro de la lista de 
+                        equipos de rescates y lo añadimos a la lista de equipos de rescate encontrados*/
+                        posEquiposEncontrados.add(equiposRescate.indexOf(equipoRescate));
+                    }
+                    // Continuamos con la siguiente evaluación de dato
+                    break;
+                case 2: // Busca por Nivel de amenaza  
+
+                    // Comparamos el Nivel de amenaza enviado del usuario con el de las lista hasta encontrárlo
+                    if (equipoRescate.getNivelAmenaza().equalsIgnoreCase(buscarDato.trim())) {
+                        /* Obtenemos la poscición del equipo de rescate encontrado dentro de la lista de 
+                        equipos de rescates y lo añadimos a la lista de equipos de rescate encontrados*/
+                        posEquiposEncontrados.add(equiposRescate.indexOf(equipoRescate));
+                    }
+                    // Continuamos con la siguiente evaluación de dato
+                    break;
+                case 3: // Busca por Uso de tecnología 
+
+                    // Comparamos el Busca por Uso de tecnología enviado del usuario con el de las lista hasta encontrárlo
+                    if (equipoRescate.getUsoTecnologiaEspecial().equalsIgnoreCase(buscarDato.trim())) {
+                        /* Obtenemos la poscición del equipo de rescate encontrado dentro de la lista de 
+                        equipos de rescates y lo añadimos a la lista de equipos de rescate encontrados*/
+                        posEquiposEncontrados.add(equiposRescate.indexOf(equipoRescate));
+                    }
+                    // Continuamos con la siguiente evaluación de dato
+                    break;
+
+                default:
+                    // No se encontraron equipos de rescate
+                    return posEquiposEncontrados;
+            } // Fin del swift
+        } // Fin del bucle for
+
+        // Ya se recorrio toda la lista, retornamos lo encontrado
+        return posEquiposEncontrados;
     }
 
     /**
@@ -1027,6 +1155,16 @@ public class NelsonAcuna_Proyecto1 {
         } while (true);
     }
 
+    /**
+     * Elimina un equipo de rescate
+     *
+     * Elimina un equipo de rescate de la lista actual de equipos de rescate que
+     * existen, por medio de un ID de equipo que recibe del usuario para
+     * encontrarlo dentro de la lista de equipos de rescate
+     *
+     * @param entrada Entrada de datos
+     * @param equiposRescate Lista de equipos de rescate existentes
+     */
     public static void eliminarEquipo(Scanner entrada, ArrayList<EquipoRescate> equiposRescate) {
         do {
             // Validamos que la lista de equipos de rescate no esté vacía
@@ -1109,6 +1247,16 @@ public class NelsonAcuna_Proyecto1 {
         System.out.print("\nTotal de superhéroes registrados: " + superHeroes.size() + "\n");
     }
 
+    /**
+     * Busca un superhéroe para mostrarlo en pantalla
+     *
+     * Busca dentro de la lista de superhéroes un superhéroe en específico el
+     * cual es buscado por su ID correspondiente y mostrado al usuario en
+     * pantalla
+     *
+     * @param entrada Entrada de datos
+     * @param superHeroes Lista actualizada de superhéroes
+     */
     public static void buscarSuperHeroe(Scanner entrada, ArrayList<Superheroe> superHeroes) {
         //Validamos que la lista de superhéroes no esté vacia
         if (superHeroes.isEmpty()) {
@@ -1186,170 +1334,154 @@ public class NelsonAcuna_Proyecto1 {
 
     }
 
+    public static void equipoMayorCostoOperativo(ArrayList<EquipoRescate> equiposRescate) {
+        //Validamos que la lista de equipos de rescate no esté vacia
+        if (equiposRescate.isEmpty()) {
+            System.out.println("\n¡Lista vacía! Agrega un equipo de rescate para continuar\n");
+            //Regresamos al menú
+            return;
+        }
+        // Variables
+        // Encabezado
+
+    }
+
+    /**
+     * Busca equipos de rescate por tipo de emergencia
+     * 
+     * Permite buscar equipos de rescate según el tipo de emergencia
+     * que el usuario requiera de momento y los imprime en pantalla
+     * 
+     * @param entrada Entrada de datos
+     * @param equiposRescate Lista de equipos de rescate que reciba para
+     * buscar
+     */
+    public static void buscarEquipoTipoEmergencia(Scanner entrada, ArrayList<EquipoRescate> equiposRescate) {
+        //Validamos que la lista de equipos de rescate no esté vacia
+        if (equiposRescate.isEmpty()) {
+            System.out.println("\n¡Lista vacía! Agrega un equipo de rescate para continuar\n");
+            //Regresamos al menú
+            return;
+        }
+
+        // Variable
+        String mensaje;
+        String tipoEmergencia;
+
+        ArrayList<Integer> posEquiposEncontrados;
+        ArrayList<EquipoRescate> equiposEncontrados = new ArrayList<>();
+
+        // Encabezado
+        System.out.println("\n" + "-".repeat(6) + " EQUIPOS DE RESCATE POR TIPO DE EMERGENCIA " + "-".repeat(6) + "\n");
+
+        //Se solicita el tipo de emergencia
+        mensaje = "Tipo de emergencia";
+        // Asignamos el dato a buscar 
+        tipoEmergencia = solicitarOpcion(entrada, mensaje, "Desastres naturales", "Invasión alienígena", "Amenaza nuclear", "Villano de alto riesgo");
+
+        posEquiposEncontrados = buscadorEquiposRescate(equiposRescate, tipoEmergencia, 1);
+
+        for (int posEquipo : posEquiposEncontrados) {
+            // Agregamos el resultado al arreglo de equipos encontrados
+            equiposEncontrados.add(equiposRescate.get(posEquipo));
+        }
+
+        imprimirEquiposRescate(equiposEncontrados);
+
+    }
+
+    public static void mostrarHeroeNivelElite() {
+    }
+
+    public static void mostrarCantHeroesPorEstado() {
+    }
+
     public static void cantidadHeroesPorEstado() {
     }
 
-    //Metodo de prueba    
     public static void cargarSuperheroesPrueba(ArrayList<Superheroe> superHeroes) {
 
-        // Evitamos duplicar los registros si el método se llama nuevamente.
         if (!superHeroes.isEmpty()) {
             return;
         }
 
-        // Superhéroe 1
-        Superheroe heroe1 = new Superheroe();
-        heroe1.generadorIdHeroe();
-        heroe1.setNombreHeroico("Iron Strike");
-        heroe1.setNombreReal("Daniel Rojas");
-        heroe1.setPoder("Fuerza");
-        heroe1.setExperiencia("Intermedio");
-        heroe1.setEstado("Disponible");
-        heroe1.setSalarioMensual(3500);
-        superHeroes.add(heroe1);
+        String[][] datos = {
+            {"Iron Strike", "Daniel Rojas", "Fuerza", "Intermedio", "Disponible", "3500"},
+            {"Swift Shadow", "Nelson Acuña", "Velocidad", "Élite", "En misión", "4200"},
+            {"Tech Nova", "Adrián Vargas", "Tecnología", "Novato", "Disponible", "2800"},
+            {"Mystic Flame", "Gabriela Solano", "Magia", "Intermedio", "Recuperación", "3900"},
+            {"Mind Storm", "Valeria Méndez", "Telepatía", "Élite", "Disponible", "5100"},
+            {"Titan Guard", "Carlos Jiménez", "Fuerza", "Novato", "Disponible", "2600"},
+            {"Cyber Falcon", "Andrés Castillo", "Tecnología", "Intermedio", "En misión", "4400"},
+            {"Solaris", "Lucía Herrera", "Magia", "Élite", "Recuperación", "4800"},
+            {"Aqua Force", "María López", "Fuerza", "Intermedio", "Disponible", "3700"},
+            {"Flash Nova", "José Ramírez", "Velocidad", "Élite", "Disponible", "4600"},
+            {"Quantum Mind", "Sofía Castro", "Telepatía", "Novato", "En misión", "3000"},
+            {"Steel Phoenix", "Diego Mora", "Tecnología", "Élite", "Disponible", "5300"}
+        };
 
-        // Superhéroe 2
-        Superheroe heroe2 = new Superheroe();
-        heroe2.generadorIdHeroe();
-        heroe2.setNombreHeroico("Swift Shadow");
-        heroe2.setNombreReal("Nelson Acuña");
-        heroe2.setPoder("Velocidad");
-        heroe2.setExperiencia("Élite");
-        heroe2.setEstado("En misión");
-        heroe2.setSalarioMensual(4200);
-        superHeroes.add(heroe2);
+        for (String[] dato : datos) {
+            Superheroe heroe = new Superheroe();
+            heroe.generadorIdHeroe();
+            heroe.setNombreHeroico(dato[0]);
+            heroe.setNombreReal(dato[1]);
+            heroe.setPoder(dato[2]);
+            heroe.setExperiencia(dato[3]);
+            heroe.setEstado(dato[4]);
+            heroe.setSalarioMensual(Double.parseDouble(dato[5]));
+            superHeroes.add(heroe);
+        }
 
-        // Superhéroe 3
-        Superheroe heroe3 = new Superheroe();
-        heroe3.generadorIdHeroe();
-        heroe3.setNombreHeroico("Tech Nova");
-        heroe3.setNombreReal("Adrián Vargas");
-        heroe3.setPoder("Tecnología");
-        heroe3.setExperiencia("Novato");
-        heroe3.setEstado("Disponible");
-        heroe3.setSalarioMensual(2800);
-        superHeroes.add(heroe3);
-
-        // Superhéroe 4
-        Superheroe heroe4 = new Superheroe();
-        heroe4.generadorIdHeroe();
-        heroe4.setNombreHeroico("Mystic Flame");
-        heroe4.setNombreReal("Gabriela Solano");
-        heroe4.setPoder("Magia");
-        heroe4.setExperiencia("Intermedio");
-        heroe4.setEstado("Recuperación");
-        heroe4.setSalarioMensual(3900);
-        superHeroes.add(heroe4);
-
-        // Superhéroe 5
-        Superheroe heroe5 = new Superheroe();
-        heroe5.generadorIdHeroe();
-        heroe5.setNombreHeroico("Mind Storm");
-        heroe5.setNombreReal("Valeria Méndez");
-        heroe5.setPoder("Telepatía");
-        heroe5.setExperiencia("Élite");
-        heroe5.setEstado("Disponible");
-        heroe5.setSalarioMensual(5100);
-        superHeroes.add(heroe5);
-
-        // Superhéroe 6
-        Superheroe heroe6 = new Superheroe();
-        heroe6.generadorIdHeroe();
-        heroe6.setNombreHeroico("Titan Guard");
-        heroe6.setNombreReal("Carlos Jiménez");
-        heroe6.setPoder("Fuerza");
-        heroe6.setExperiencia("Novato");
-        heroe6.setEstado("Disponible");
-        heroe6.setSalarioMensual(2600);
-        superHeroes.add(heroe6);
-
-        // Superhéroe 7
-        Superheroe heroe7 = new Superheroe();
-        heroe7.generadorIdHeroe();
-        heroe7.setNombreHeroico("Cyber Falcon");
-        heroe7.setNombreReal("Andrés Castillo");
-        heroe7.setPoder("Tecnología");
-        heroe7.setExperiencia("Intermedio");
-        heroe7.setEstado("En misión");
-        heroe7.setSalarioMensual(4400);
-        superHeroes.add(heroe7);
-
-        // Superhéroe 8
-        Superheroe heroe8 = new Superheroe();
-        heroe8.generadorIdHeroe();
-        heroe8.setNombreHeroico("Solaris");
-        heroe8.setNombreReal("Lucía Herrera");
-        heroe8.setPoder("Magia");
-        heroe8.setExperiencia("Élite");
-        heroe8.setEstado("Recuperación");
-        heroe8.setSalarioMensual(4800);
-        superHeroes.add(heroe8);
-
-        System.out.println("Se cargaron 8 superhéroes de prueba.");
+        System.out.println("Se cargaron " + datos.length + " superhéroes de prueba.");
     }
 
     public static void cargarEquiposPrueba(
             ArrayList<Superheroe> superHeroes,
             ArrayList<EquipoRescate> equiposRescate) {
 
-        if (superHeroes.size() < 8 || !equiposRescate.isEmpty()) {
+        if (superHeroes.size() < 12 || !equiposRescate.isEmpty()) {
             return;
         }
 
-        // Equipo 1: Guardianes Globales
-        EquipoRescate equipo1 = new EquipoRescate();
-        equipo1.generadorIdEquipo();
-        equipo1.setNombreEquipo("Guardianes Globales");
-        equipo1.setTipoEmergencia("Invasión alienígena");
-        equipo1.setNivelAmenaza("Alto");
-        equipo1.setCiudadAsignada("Metropolis");
-        equipo1.setUsoTecnologiaEspecial("Sí");
+        String[][] datos = {
+            {"Guardianes Globales", "Invasión alienígena", "Alto", "Metropolis", "Sí"},
+            {"Escudo Urbano", "Desastres naturales", "Medio", "San Jose", "No"},
+            {"Operación Centella", "Villano de alto riesgo", "Bajo", "Guatuso", "Sí"},
+            {"Defensores del Norte", "Amenaza nuclear", "Alto", "Alajuela", "Sí"},
+            {"Fuerza Relámpago", "Desastres naturales", "Bajo", "Heredia", "No"},
+            {"Centinelas Cósmicos", "Invasión alienígena", "Medio", "Cartago", "Sí"}
+        };
 
-        ArrayList<Superheroe> heroesEquipo1 = new ArrayList<>();
-        heroesEquipo1.add(superHeroes.get(0));
-        heroesEquipo1.add(superHeroes.get(1));
-        heroesEquipo1.add(superHeroes.get(2));
-        heroesEquipo1.add(superHeroes.get(3));
+        int[][] integrantes = {
+            {0, 1, 2, 3},
+            {4, 5},
+            {6, 7},
+            {0, 5, 8, 9},
+            {2, 4, 10},
+            {1, 7, 10, 11}
+        };
 
-        equipo1.setListaSuperheroes(heroesEquipo1);
-        equipo1.calcularCostoOperativo();
-        equiposRescate.add(equipo1);
+        for (int i = 0; i < datos.length; i++) {
+            EquipoRescate equipo = new EquipoRescate();
+            equipo.generadorIdEquipo();
+            equipo.setNombreEquipo(datos[i][0]);
+            equipo.setTipoEmergencia(datos[i][1]);
+            equipo.setNivelAmenaza(datos[i][2]);
+            equipo.setCiudadAsignada(datos[i][3]);
+            equipo.setUsoTecnologiaEspecial(datos[i][4]);
 
-        // Equipo 2: Escudo Urbano
-        EquipoRescate equipo2 = new EquipoRescate();
-        equipo2.generadorIdEquipo();
-        equipo2.setNombreEquipo("Escudo Urbano");
-        equipo2.setTipoEmergencia("Desastres naturales");
-        equipo2.setNivelAmenaza("Medio");
-        equipo2.setCiudadAsignada("San Jose");
-        equipo2.setUsoTecnologiaEspecial("No");
+            ArrayList<Superheroe> heroesEquipo = new ArrayList<>();
 
-        ArrayList<Superheroe> heroesEquipo2 = new ArrayList<>();
-        heroesEquipo2.add(superHeroes.get(4));
-        heroesEquipo2.add(superHeroes.get(5));
+            for (int indice : integrantes[i]) {
+                heroesEquipo.add(superHeroes.get(indice));
+            }
 
-        equipo2.setListaSuperheroes(heroesEquipo2);
-        equipo2.calcularCostoOperativo();
-        equiposRescate.add(equipo2);
+            equipo.setListaSuperheroes(heroesEquipo);
+            equipo.calcularCostoOperativo();
+            equiposRescate.add(equipo);
+        }
 
-        // Equipo 3: Operación Centella
-        EquipoRescate equipo3 = new EquipoRescate();
-        equipo3.generadorIdEquipo();
-        equipo3.setNombreEquipo("Operacion Centella");
-        equipo3.setTipoEmergencia("Villano de alto riesgo");
-        equipo3.setNivelAmenaza("Bajo");
-        equipo3.setCiudadAsignada("Guatuso");
-        equipo3.setUsoTecnologiaEspecial("Sí");
-
-        ArrayList<Superheroe> heroesEquipo3 = new ArrayList<>();
-        heroesEquipo3.add(superHeroes.get(6));
-        heroesEquipo3.add(superHeroes.get(7));
-
-        equipo3.setListaSuperheroes(heroesEquipo3);
-        equipo3.calcularCostoOperativo();
-        equiposRescate.add(equipo3);
-
-        System.out.println("Se cargaron 3 equipos de rescate de prueba.");
+        System.out.println("Se cargaron " + datos.length + " equipos de rescate de prueba.");
     }
 
 }
