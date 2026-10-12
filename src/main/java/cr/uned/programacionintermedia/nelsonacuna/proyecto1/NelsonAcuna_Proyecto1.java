@@ -31,21 +31,12 @@ public class NelsonAcuna_Proyecto1 {
         /**
          * Configura la salida estándar de la aplicación utilizando la
          * codificación UTF-8, con el propósito de representar correctamente
-         * caracteres como tildes y la letra ñ.
+         * caracteres con tildes y la letra ñ.
          *
          * Basado en la documentación oficial de Java para las clases
          * PrintStream y StandardCharsets
-         *
-         * Fuente: Oracle, Java SE Documentation - PrintStream:
-         * https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/io/PrintStream.html
-         *
-         * Oracle, Java SE Documentation - StandardCharsets:
-         * https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/nio/charset/StandardCharsets.html
          */
-        System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
-
-        cargarSuperheroesPrueba(superHeroes);
-        cargarEquiposPrueba(superHeroes, equiposRescate);
+        System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));;
 
         Scanner scannerEntrada = new Scanner(System.in);
 
@@ -207,6 +198,7 @@ public class NelsonAcuna_Proyecto1 {
                                 mostrarHeroeNivelElite(superHeroes);
                                 break;
                             case 7: // Mostrar cantidad de héroes según su estado
+                                mostrarCantHeroesPorEstado(superHeroes);
                                 break;
                             case 8: // Regresar al menú principal
                                 continuar = false;
@@ -1264,10 +1256,10 @@ public class NelsonAcuna_Proyecto1 {
      * @param superHeroes Lista actualizada de superhéroes
      */
     public static void buscarSuperHeroe(Scanner entrada, ArrayList<Superheroe> superHeroes) {
-        //Validamos que la lista de superhéroes no esté vacia
+        // Validamos que la lista de superhéroes no esté vacia
         if (superHeroes.isEmpty()) {
             System.out.println("¡Lista vacía! Agrega un superhéroe para continuar");
-            //Regresamos al menú
+            // Regresamos al menú
             return;
         }
         do {
@@ -1322,10 +1314,10 @@ public class NelsonAcuna_Proyecto1 {
      */
     public static void mostrarEquiposRescate(ArrayList<EquipoRescate> equiposRescate) {
 
-        //Validamos que la lista de equipos de rescate no esté vacia
+        // Validamos que la lista de equipos de rescate no esté vacia
         if (equiposRescate.isEmpty()) {
             System.out.println("\n¡Lista vacía! Agrega un equipo de rescate para continuar\n");
-            //Regresamos al menú
+            // Regresamos al menú
             return;
         }
 
@@ -1336,7 +1328,7 @@ public class NelsonAcuna_Proyecto1 {
         imprimirEquiposRescate(equiposRescate);
         System.out.println("=".repeat(55));
 
-        //Mensaje que indica la cantidad de equipos de rescate registados a la actualidad 
+        // Mensaje que indica la cantidad de equipos de rescate registados a la actualidad 
         System.out.print("\nTotal de equipos registrados: " + equiposRescate.size() + "\n");
 
     }
@@ -1351,14 +1343,14 @@ public class NelsonAcuna_Proyecto1 {
      * @param equiposRescate Lista de equipos de rescate
      */
     public static void equipoMayorCostoOperativo(ArrayList<EquipoRescate> equiposRescate) {
-        //Validamos que la lista de equipos de rescate no esté vacia
+        // Validamos que la lista de equipos de rescate no esté vacia
         if (equiposRescate.isEmpty()) {
             System.out.println("\n¡Lista vacía! Agrega un equipo de rescate para continuar\n");
-            //Regresamos al menú
+            // Regresamos al menú
             return;
         }
         // Variables
-        //Inicializo la variable con el costo operativo del primer equipo de rescate de la lista
+        // Inicializo la variable con el costo operativo del primer equipo de rescate de la lista
         double costoOperativoMayor = equiposRescate.get(0).getCostoOperativo();
 
         EquipoRescate equipoMayorCosto = equiposRescate.get(0);
@@ -1367,7 +1359,7 @@ public class NelsonAcuna_Proyecto1 {
         // Encabezado
         System.out.println("\n" + "-".repeat(10) + " EQUIPO CON MAYOR COSTO OPERATIVO " + "-".repeat(11) + "\n");
 
-        //Bucle que 
+        // Bucle que recorre los equipos de rescate para evaluar su costo operativo 
         for (EquipoRescate equipoRescate : equiposRescate) {
             if (equipoRescate.getCostoOperativo() > costoOperativoMayor) {
                 // Asignamos el nuevo valor mayor al costo operativo mayor que ocupamos
@@ -1430,8 +1422,8 @@ public class NelsonAcuna_Proyecto1 {
 
         // Imprimimos los datos en pantalla
         System.out.println("\n" + "=".repeat(55));
-        imprimirEquiposRescate(equiposEncontrados);        
-        System.out.println("\nTotal de equipos encontrados: " + equiposEncontrados.size()  + " para " + tipoEmergencia);        
+        imprimirEquiposRescate(equiposEncontrados);
+        System.out.println("\nTotal de equipos encontrados: " + equiposEncontrados.size() + " para " + tipoEmergencia);
         System.out.println("\n" + "=".repeat(55));
 
     }
@@ -1445,10 +1437,10 @@ public class NelsonAcuna_Proyecto1 {
      * @param superHeroes Lista de superhéroes actuales
      */
     public static void mostrarHeroeNivelElite(ArrayList<Superheroe> superHeroes) {
-        //Validamos que la lista de equipos de rescate no esté vacia
+        // Validamos que la lista de equipos de rescate no esté vacia
         if (superHeroes.isEmpty()) {
             System.out.println("\n¡Lista vacía! Agrega un equipo de rescate para continuar\n");
-            //Regresamos al menú
+            // Regresamos al menú
             return;
         }
 
@@ -1460,8 +1452,10 @@ public class NelsonAcuna_Proyecto1 {
         // Asignamos el dato a buscar 
         String nivelExperiencia = "Élite";
 
+        //Recibimos el arreglo de posisiones encontradas
         posHeroesEncontrados = buscadorHeroes(superHeroes, nivelExperiencia, 2);
 
+        // Recorremos las posiciones encontradas
         for (int posHeroe : posHeroesEncontrados) {
             // Agregamos el resultado al arreglo de equipos encontrados
             heroesEncontrados.add(superHeroes.get(posHeroe));
@@ -1470,98 +1464,93 @@ public class NelsonAcuna_Proyecto1 {
         // Imprimimos los datos en pantalla
         System.out.println("=".repeat(86));
         imprimirSuperHeroes(heroesEncontrados);
-        System.out.println("Total de héroes de nivel élite encontrado: " + heroesEncontrados.size());       
+        System.out.println("Total de héroes de nivel élite encontrado: " + heroesEncontrados.size());
         System.out.println("=".repeat(86));
     }
 
-    public static void mostrarCantHeroesPorEstado() {
+    /**
+     * Mostrar la cantidad de superhéroes por estado
+     *
+     * Muestra la cantidad de héroes que existe por estado y el detalle de cada
+     * uno de ellos
+     *
+     * @param superHeroes Recibe la lista de superhéroes actuales
+     */
+    public static void mostrarCantHeroesPorEstado(ArrayList<Superheroe> superHeroes) {
+        // Validamos que la lista de superhéroes no esté vacia
+        if (superHeroes.isEmpty()) {
+            System.out.println("¡Lista vacía! Agrega un superhéroe para continuar");
+            // Regresamos al menú
+            return;
+        }
         
+        // Variables
+        String estado;
+        int cantHeroesEstado;
+        ArrayList<Integer> posHeroesEncontrados;
+        ArrayList<Superheroe> heroesEncontrados = new ArrayList<>();
+
+        // Encabezado
+        System.out.println("\n" + "-".repeat(25) + " CANTIDAD DE SUPERHÉROES POR ESTADO " + "-".repeat(25) + "\n");
+
+        // Estado Disponible
+        estado = "Disponible";
+        // Obtenemos la lista de posiciones encontradas con el estado indicado
+        posHeroesEncontrados = buscadorHeroes(superHeroes, estado, 3);
+        // Obtenemos la cantidad que hay
+        cantHeroesEstado = posHeroesEncontrados.size();
+        // Recorremos la lista añadiendo cada héroe en su posición para añadirlo en héroes encontrados
+        for (int posHeroe : posHeroesEncontrados) {
+            heroesEncontrados.add(superHeroes.get(posHeroe));
+        }
+
+        System.out.println("=".repeat(86));
+        System.out.println(estado + ": " + cantHeroesEstado);
+        System.out.println("=".repeat(86));
+        // Imprimimos la lista de héroes encontrados
+        imprimirSuperHeroes(heroesEncontrados);
+        System.out.println("=".repeat(86));
+
+        // Limpiamos el arreglo para reutilizarlo con el siguiente estado
+        heroesEncontrados.clear();
+
+        // Estado Disponible
+        estado = "En misión";
+        // Obtenemos la lista de posiciones encontradas con el estado indicado
+        posHeroesEncontrados = buscadorHeroes(superHeroes, estado, 3);
+        // Obtenemos la cantidad que hay
+        cantHeroesEstado = posHeroesEncontrados.size();
+        // Recorremos la lista añadiendo cada héroe en su posición para añadirlo en héroes encontrados
+        for (int posHeroe : posHeroesEncontrados) {
+            heroesEncontrados.add(superHeroes.get(posHeroe));
+        }
+
+        System.out.println("=".repeat(86));
+        System.out.println(estado + ": " + cantHeroesEstado);
+        System.out.println("=".repeat(86));
+        // Imprimimos la lista de héroes encontrados
+        imprimirSuperHeroes(heroesEncontrados);
+        System.out.println("=".repeat(86));
+
+        // Limpiamos el arreglo para reutilizarlo con el siguiente estado
+        heroesEncontrados.clear();
+
+        // Estado Disponible
+        estado = "Recuperación";
+        // Obtenemos la lista de posiciones encontradas con el estado indicado
+        posHeroesEncontrados = buscadorHeroes(superHeroes, estado, 3);
+        // Obtenemos la cantidad que hay
+        cantHeroesEstado = posHeroesEncontrados.size();
+        // Recorremos la lista añadiendo cada héroe en su posición para añadirlo en héroes encontrados
+        for (int posHeroe : posHeroesEncontrados) {
+            heroesEncontrados.add(superHeroes.get(posHeroe));
+        }
+
+        System.out.println("=".repeat(86));
+        System.out.println(estado + ": " + cantHeroesEstado);
+        System.out.println("=".repeat(86));
+        // Imprimimos la lista de héroes encontrados
+        imprimirSuperHeroes(heroesEncontrados);
+        System.out.println("=".repeat(86));
     }
-
-    //Metodos de prueba para experimentos de funcionamiento no pertenecen al proyecto
-    public static void cargarSuperheroesPrueba(ArrayList<Superheroe> superHeroes) {
-
-        if (!superHeroes.isEmpty()) {
-            return;
-        }
-
-        String[][] datos = {
-            {"Iron Strike", "Daniel Rojas", "Fuerza", "Intermedio", "Disponible", "3500"},
-            {"Swift Shadow", "Nelson Acuña", "Velocidad", "Élite", "En misión", "4200"},
-            {"Tech Nova", "Adrián Vargas", "Tecnología", "Novato", "Disponible", "2800"},
-            {"Mystic Flame", "Gabriela Solano", "Magia", "Intermedio", "Recuperación", "3900"},
-            {"Mind Storm", "Valeria Méndez", "Telepatía", "Élite", "Disponible", "5100"},
-            {"Titan Guard", "Carlos Jiménez", "Fuerza", "Novato", "Disponible", "2600"},
-            {"Cyber Falcon", "Andrés Castillo", "Tecnología", "Intermedio", "En misión", "4400"},
-            {"Solaris", "Lucía Herrera", "Magia", "Élite", "Recuperación", "4800"},
-            {"Aqua Force", "María López", "Fuerza", "Intermedio", "Disponible", "3700"},
-            {"Flash Nova", "José Ramírez", "Velocidad", "Élite", "Disponible", "4600"},
-            {"Quantum Mind", "Sofía Castro", "Telepatía", "Novato", "En misión", "3000"},
-            {"Steel Phoenix", "Diego Mora", "Tecnología", "Élite", "Disponible", "5300"}
-        };
-
-        for (String[] dato : datos) {
-            Superheroe heroe = new Superheroe();
-            heroe.generadorIdHeroe();
-            heroe.setNombreHeroico(dato[0]);
-            heroe.setNombreReal(dato[1]);
-            heroe.setPoder(dato[2]);
-            heroe.setExperiencia(dato[3]);
-            heroe.setEstado(dato[4]);
-            heroe.setSalarioMensual(Double.parseDouble(dato[5]));
-            superHeroes.add(heroe);
-        }
-
-        System.out.println("Se cargaron " + datos.length + " superhéroes de prueba.");
-    }
-
-    public static void cargarEquiposPrueba(
-            ArrayList<Superheroe> superHeroes,
-            ArrayList<EquipoRescate> equiposRescate) {
-
-        if (superHeroes.size() < 12 || !equiposRescate.isEmpty()) {
-            return;
-        }
-
-        String[][] datos = {
-            {"Guardianes Globales", "Invasión alienígena", "Alto", "Metropolis", "Sí"},
-            {"Escudo Urbano", "Desastres naturales", "Medio", "San Jose", "No"},
-            {"Operación Centella", "Villano de alto riesgo", "Bajo", "Guatuso", "Sí"},
-            {"Defensores del Norte", "Amenaza nuclear", "Alto", "Alajuela", "Sí"},
-            {"Fuerza Relámpago", "Desastres naturales", "Bajo", "Heredia", "No"},
-            {"Centinelas Cósmicos", "Invasión alienígena", "Medio", "Cartago", "Sí"}
-        };
-
-        int[][] integrantes = {
-            {0, 1, 2, 3},
-            {4, 5},
-            {6, 7},
-            {0, 5, 8, 9},
-            {2, 4, 10},
-            {1, 7, 10, 11}
-        };
-
-        for (int i = 0; i < datos.length; i++) {
-            EquipoRescate equipo = new EquipoRescate();
-            equipo.generadorIdEquipo();
-            equipo.setNombreEquipo(datos[i][0]);
-            equipo.setTipoEmergencia(datos[i][1]);
-            equipo.setNivelAmenaza(datos[i][2]);
-            equipo.setCiudadAsignada(datos[i][3]);
-            equipo.setUsoTecnologiaEspecial(datos[i][4]);
-
-            ArrayList<Superheroe> heroesEquipo = new ArrayList<>();
-
-            for (int indice : integrantes[i]) {
-                heroesEquipo.add(superHeroes.get(indice));
-            }
-
-            equipo.setListaSuperheroes(heroesEquipo);
-            equipo.calcularCostoOperativo();
-            equiposRescate.add(equipo);
-        }
-
-        System.out.println("Se cargaron " + datos.length + " equipos de rescate de prueba.");
-    }
-
 }
