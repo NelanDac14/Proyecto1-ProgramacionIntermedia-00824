@@ -7,11 +7,19 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Locale;
 
 /**
  * Clase principal del proyecto
+ * 
+ * Este proyecto es desarrollado para solucionar la necesidad de la Academia
+ * Internacional de Superhéroes de gestionar sus equipos de rescate y sus 
+ * superhéroes correspondientes
+ * 
+ * Permite funcionalidades como agregar, actualizar, leer y eliminar registros,
+ * ya sea de superhéroes o de equipos de rescate. Cuenta con 2 clases que 
+ * funcionan como objetos respectivos de sus nombre y que funcionan como tal dentro
+ * del sistema.
  *
  * @author Nelson Andrés Acuña Cambronero
  * @version 1.0
@@ -52,7 +60,7 @@ public class NelsonAcuna_Proyecto1 {
                 //Eliminamos el buffer residual
                 scannerEntrada.nextLine();
             } catch (InputMismatchException e) {
-                System.out.println("Opción inválida, inténtelo de nuevo.");
+                System.out.println("¡Opción inválida! Inténtelo de nuevo.");
                 // Descartamos el buffer de entrada erróneo.
                 scannerEntrada.nextLine();
                 //Saltamos el switch para repetir el menú
@@ -359,8 +367,7 @@ public class NelsonAcuna_Proyecto1 {
      *
      * @param mensaje mensaje del dato que va a solicitar
      *
-     * @param tamMinNomb dato que estable el mínimo de caracteres que debe tener
-     * el dato a solicitar
+     * @param tamMinNomb dato que representa la cantidad mínima para el nombre
      *
      * @return retorna un String con el nombre solicitado ya validado a que
      * tenga el mínimo de caracteres correspondientes
@@ -376,7 +383,7 @@ public class NelsonAcuna_Proyecto1 {
             if (nombSolicitado.length() >= tamMinNomb) {
                 return nombSolicitado;
             } else {
-                System.out.println("\n¡Nombre inválido!. Debe contener al menos " + tamMinNomb + " caracteres.\n");
+                System.out.println("\n¡Nombre inválido! Debe contener al menos " + tamMinNomb + " caracteres.\n");
             }
         } while (true);
     }
@@ -413,7 +420,7 @@ public class NelsonAcuna_Proyecto1 {
     /**
      * Buscador por ID de superhéroes
      *
-     * Busca un superhéroe por su ID, digitado por el usuario
+     * Busca un superhéroe por su ID, en caso de no encontrarlo devuelve -1
      *
      * @param superHeroes lista de superhéroes actual
      * @param idSuperHeroe id suministrado por el usuario
@@ -445,10 +452,8 @@ public class NelsonAcuna_Proyecto1 {
      * @param superHeroes Lista de superhéroes actual
      * @param buscarDato Dato que el usuario ingresa para buscar según el tipo
      * de búsqueda
-     * @param tipoBusqueda Tipo de búsqueda que se desea raealizar por: Poder,
-     * Nivel o Estado en orden 1, 2 o 3.
-     *
-     * Ejemplo: 1- Busca por Poder 2- Busca por Nivel 3- Busca por Estado
+     * @param tipoBusqueda Tipo de búsqueda que se desea raealizar por: 
+     * 1- Busca por Poder 2- Busca por Nivel 3- Busca por Estado
      *
      * @return retorna las posiciones de los superhéroes dentro de la lista que
      * cumplan con el dato a buscar
@@ -518,7 +523,7 @@ public class NelsonAcuna_Proyecto1 {
      * 1- Busca por Tipo de emergencia 2- Busca por Nivel de amenaza 3- Busca
      * por Uso de tecnología
      *
-     * @return retorna las posiciones de los superhéroes dentro de la lista que
+     * @return retorna las posiciones de los equipos de rescate dentro de la lista que
      * cumplan con el dato a buscar
      */
     public static ArrayList<Integer> buscadorEquiposRescate(ArrayList<EquipoRescate> equiposRescate, String buscarDato, int tipoBusqueda) {
@@ -585,7 +590,7 @@ public class NelsonAcuna_Proyecto1 {
             for (EquipoRescate equipoRescate : equiposRescate) {
                 // Comparamos el ID enviado del usuario con el de las lista hasta encontrárlo
                 if (equipoRescate.getIdEquipo().equals(idEquipoRescate)) {
-                    // Obtenemos la poscición del equipo de rescate a retornar dentro del ArrayList
+                    // Obtenemos la posición del equipo de rescate a retornar dentro del ArrayList
                     return equiposRescate.indexOf(equipoRescate);
                 }
             }
@@ -649,7 +654,7 @@ public class NelsonAcuna_Proyecto1 {
     /**
      * Solicita datos de un superhéroe
      *
-     * Solicita al usuario datos de un superhéro, ya se para agregar o
+     * Solicita al usuario datos de un superhéroe, ya se para agregar o
      * actualizar un superhéroe
      *
      * @param entrada Entrada de datos
@@ -717,9 +722,8 @@ public class NelsonAcuna_Proyecto1 {
     /**
      * Solicita datos de un equipo de rescate
      *
-     * Solicita y valida datos correspondientes a un equipo de rescate para
-     * posteriormente con los dato ya validados ingresarlos como un nuevo equipo
-     * de rescate dentro del arreglo.
+     * Solicita y valida datos correspondientes a un equipo de rescate para luego 
+     * agregar un equipo o actualizarlo
      *
      * @param entrada entrada de datos
      * @param equipoRescate objeto de la clase EquipoRescate
@@ -771,7 +775,7 @@ public class NelsonAcuna_Proyecto1 {
 
         // Recorremo el arreglo heroesEquipo para agregarlo al arreglo de superhéroes del equipo
         for (String idHeroe : heroesEquipo) {
-            // Contiene la posisión del superhéroe dentro de la lista de superhéroes
+            // Contiene la posición del superhéroe dentro de la lista de superhéroes
             int posIndexSuperHeroe;
 
             //Buscamos el ID de superhéroe dentro de la lista de superhéroes
@@ -829,7 +833,7 @@ public class NelsonAcuna_Proyecto1 {
             // Se genera el ID del superhéroe 
             superHeroe.generadorIdHeroe();
 
-            //Muesta el nuevo ID del superhéroe a registrar
+            //Muestra el nuevo ID del superhéroe a registrar
             System.out.println("ID generado: " + superHeroe.getIdHeroe());
 
             // Solicitamos la información del superhéroe
@@ -841,7 +845,7 @@ public class NelsonAcuna_Proyecto1 {
             // Notificamos al usuario que se registró correctamente
             System.out.println("\n¡Superhéroe registrado correctamente!");
 
-            String pregunta = "Deseas agregar otro superhéroe";
+            String pregunta = "Desea agregar otro superhéroe";
             if (!respuestaSiNo(entrada, pregunta)) {
                 break;
             }
@@ -854,8 +858,8 @@ public class NelsonAcuna_Proyecto1 {
      * Su funcionalidad es la actualización de datos de los superhéroes para
      * mantener actualizados estos o por si algún error de digitación
      *
-     * @param entrada
-     * @param superHeroes
+     * @param entrada entrada de datos
+     * @param superHeroes lista de superhéroes actuales
      */
     public static void actualizarDatosSuperHeroe(Scanner entrada, ArrayList<Superheroe> superHeroes) {
         //Validamos que la lista de superhéroes no esté vacia
@@ -883,7 +887,7 @@ public class NelsonAcuna_Proyecto1 {
 
             // Validamos que se encontró el ID del superhéro buscado
             if (posIndexSuperHeroe == -1) {
-                System.out.println("\n¡No se encontró el superhéroe solicitado! Intentelo de nuevo\n");
+                System.out.println("\n¡No se encontró el superhéroe solicitado! Inténtelo de nuevo\n");
                 // Repetimos el proceso de buscar un ID
                 continue;
             }
@@ -897,7 +901,7 @@ public class NelsonAcuna_Proyecto1 {
             // Actualizamos el superhéroe
             superHeroes.set(posIndexSuperHeroe, superHeroe);
 
-            String pregunta = "Deseas actualizar a otro superhéroe";
+            String pregunta = "Desea actualizar a otro superhéroe";
 
             // Si responde que no, sale al menú de Gestión de superhéroes
             if (!respuestaSiNo(entrada, pregunta)) {
@@ -948,7 +952,7 @@ public class NelsonAcuna_Proyecto1 {
 
             // Validamos que se encontró el ID del superhéro buscado
             if (posIndexSuperHeroe == -1) {
-                System.out.println("\n¡No se encontró el superhéroe solicitado! Intentelo de nuevo\n");
+                System.out.println("\n¡No se encontró el superhéroe solicitado! Inténtelo de nuevo\n");
                 // Repetimos el proceso de buscar un ID
                 continue;
             }
@@ -966,7 +970,7 @@ public class NelsonAcuna_Proyecto1 {
 
             System.out.println("\nEstado actualizado correctamente!\n");
 
-            String pregunta = "Deseas actualizar el estado a otro superhéroe";
+            String pregunta = "Desea actualizar el estado a otro superhéroe";
 
             // Si responde que no, sale al menú de Gestión de superhéroes
             if (!respuestaSiNo(entrada, pregunta)) {
@@ -983,8 +987,8 @@ public class NelsonAcuna_Proyecto1 {
      * Su funcionalidad es eliminar a un superhéroe, el cual es buscado por su
      * ID y luego eliminado de la lista
      *
-     * @param entrada
-     * @param superHeroes
+     * @param entrada entrada de datos
+     * @param superHeroes lista de superhéroes actuales
      */
     public static void eliminarSuperHeroe(Scanner entrada, ArrayList<Superheroe> superHeroes) {
         do {
@@ -1014,7 +1018,7 @@ public class NelsonAcuna_Proyecto1 {
 
             // Validamos que se encontró el ID del superhéro buscado
             if (posIndexSuperHeroe == -1) {
-                System.out.println("\n¡No se encontró el superhéroe solicitado! Intentelo de nuevo\n");
+                System.out.println("\n¡No se encontró el superhéroe solicitado! Inténtelo de nuevo\n");
                 // Repetimos el proceso de buscar un ID
                 continue;
             }
@@ -1022,7 +1026,7 @@ public class NelsonAcuna_Proyecto1 {
             // Se agrega la información correspondiente del superhéroe solicitado
             superHeroe = superHeroes.get(posIndexSuperHeroe);
 
-            // Reafirmamos la descisión de eliminar al superhéroe solicitado o velvemos a preguntar
+            // Reafirmamos la decisión de eliminar al superhéroe solicitado o velvemos a preguntar
             pregunta = "Deseas eliminar a: " + superHeroe.getIdHeroe()
                     + " | " + superHeroe.getNombreHeroico();
 
@@ -1044,12 +1048,12 @@ public class NelsonAcuna_Proyecto1 {
         } while (true);
     }
 
-    //Métodos del Módulo de Gestioón de Equipos de Rescate
+    //Métodos del Módulo de Gestión de Equipos de Rescate
     /**
      * Agregar nuevo equipo
      *
      * Agrega un nuevo equipo de rescate a la lista con la información
-     * correspondien y los superhéroes que conforman el equipo
+     * correspondiente y los superhéroes que conforman el equipo
      *
      * @param entrada Entrada de datos
      * @param superHeroes Lista de superhéroes actualizada
@@ -1086,7 +1090,7 @@ public class NelsonAcuna_Proyecto1 {
             // Notificamos al usuario que se registró correctamente
             System.out.println("\n¡Equipo registrado correctamente!");
 
-            String pregunta = "Deseas agregar otro equipo de rescate";
+            String pregunta = "Desea agregar otro equipo de rescate";
             if (!respuestaSiNo(entrada, pregunta)) {
                 break;
             }
@@ -1129,7 +1133,7 @@ public class NelsonAcuna_Proyecto1 {
 
             // Validamos que se encontró el ID del equipo de rescate
             if (posIndexEquipoRescate == -1) {
-                System.out.println("\n¡No se encontró el equipo de rescate solicitado! Intentelo de nuevo\n");
+                System.out.println("\n¡No se encontró el equipo de rescate solicitado! Inténtelo de nuevo\n");
                 // Repetimos el proceso de buscar un ID
                 continue;
             }
@@ -1143,7 +1147,7 @@ public class NelsonAcuna_Proyecto1 {
             // Actualizamos el equipo de rescate
             equiposRescate.set(posIndexEquipoRescate, equipoRescate);
 
-            String pregunta = "Deseas actualizar a otro equipo de rescate";
+            String pregunta = "Desea actualizar a otro equipo de rescate";
 
             // Si responde que no, sale al menú de Gestión de equipos de rescate
             if (!respuestaSiNo(entrada, pregunta)) {
@@ -1192,7 +1196,7 @@ public class NelsonAcuna_Proyecto1 {
 
             // Validamos que se encontró el ID del equipo de rescate buscado
             if (posIndexEquipoRescate == -1) {
-                System.out.println("\n¡No se encontró el equipo de rescate solicitado! Intentelo de nuevo\n");
+                System.out.println("\n¡No se encontró el equipo de rescate solicitado! Inténtelo de nuevo\n");
                 // Repetimos el proceso de buscar un ID
                 continue;
             }
@@ -1241,7 +1245,7 @@ public class NelsonAcuna_Proyecto1 {
 
         imprimirSuperHeroes(superHeroes);
 
-        //Mensaje que indica la cantidad de superhéroes registados a la actualidad 
+        //Mensaje que indica la cantidad de superhéroes registrados a la actualidad 
         System.out.print("\nTotal de superhéroes registrados: " + superHeroes.size() + "\n");
     }
 
@@ -1281,7 +1285,7 @@ public class NelsonAcuna_Proyecto1 {
 
             // Validamos que se encontró el ID del superhéroe buscado
             if (posIndexSuperHeroe == -1) {
-                System.out.println("\n¡No se encontró el superhéroe solicitado! Intentelo de nuevo\n");
+                System.out.println("\n¡No se encontró el superhéroe solicitado! Inténtelo de nuevo\n");
                 // Repetimos el proceso de buscar un ID 
                 continue;
             }
@@ -1328,7 +1332,7 @@ public class NelsonAcuna_Proyecto1 {
         imprimirEquiposRescate(equiposRescate);
         System.out.println("=".repeat(55));
 
-        // Mensaje que indica la cantidad de equipos de rescate registados a la actualidad 
+        // Mensaje que indica la cantidad de equipos de rescate registrados a la actualidad 
         System.out.print("\nTotal de equipos registrados: " + equiposRescate.size() + "\n");
 
     }
@@ -1336,7 +1340,7 @@ public class NelsonAcuna_Proyecto1 {
     /**
      * Muestra el equipo con mayor costo operativo
      *
-     * Recibe la lista de equipos de rescate actual y en base a sus costos
+     * Recibe la lista de equipos de rescate actual y con base en sus costos
      * operativos individuales, los compara y extrae el equipo que tiene menor
      * costo operativo.
      *
@@ -1411,7 +1415,7 @@ public class NelsonAcuna_Proyecto1 {
         // Asignamos el dato a buscar 
         tipoEmergencia = solicitarOpcion(entrada, mensaje, "Desastres naturales", "Invasión alienígena", "Amenaza nuclear", "Villano de alto riesgo");
 
-        // Extraemos la posiciones de los equipos que cumplen con lo solicitado
+        // Extraemos las posiciones de los equipos que cumplen con lo solicitado
         posEquiposEncontrados = buscadorEquiposRescate(equiposRescate, tipoEmergencia, 1);
 
         // Recorremos las posiciones y asignamos lo valores correspondiente a los equipos encontrados
@@ -1439,7 +1443,7 @@ public class NelsonAcuna_Proyecto1 {
     public static void mostrarHeroeNivelElite(ArrayList<Superheroe> superHeroes) {
         // Validamos que la lista de equipos de rescate no esté vacia
         if (superHeroes.isEmpty()) {
-            System.out.println("\n¡Lista vacía! Agrega un equipo de rescate para continuar\n");
+            System.out.println("\n¡Lista vacía! Agrega un superhéroe para continuar\n");
             // Regresamos al menú
             return;
         }
@@ -1448,7 +1452,7 @@ public class NelsonAcuna_Proyecto1 {
         ArrayList<Superheroe> heroesEncontrados = new ArrayList<>();
 
         // Encabezado
-        System.out.println("\n" + "-".repeat(6) + " EQUIPOS DE RESCATE POR TIPO DE EMERGENCIA " + "-".repeat(6) + "\n");
+        System.out.println("\n" + "-".repeat(13) + " SUPERHÉROES DE NIVEL ÉLITE " + "-".repeat(14) + "\n");
         // Asignamos el dato a buscar 
         String nivelExperiencia = "Élite";
 
@@ -1464,11 +1468,11 @@ public class NelsonAcuna_Proyecto1 {
         // Imprimimos los datos en pantalla
         System.out.println("=".repeat(86));
         imprimirSuperHeroes(heroesEncontrados);
-        System.out.println("Total de héroes de nivel élite encontrado: " + heroesEncontrados.size());
+        System.out.println("Total de héroes de nivel élite: " + heroesEncontrados.size());
         System.out.println("=".repeat(86));
     }
 
-    /**
+        /**
      * Mostrar la cantidad de superhéroes por estado
      *
      * Muestra la cantidad de héroes que existe por estado y el detalle de cada
@@ -1514,7 +1518,7 @@ public class NelsonAcuna_Proyecto1 {
         // Limpiamos el arreglo para reutilizarlo con el siguiente estado
         heroesEncontrados.clear();
 
-        // Estado Disponible
+        // Estado En misión
         estado = "En misión";
         // Obtenemos la lista de posiciones encontradas con el estado indicado
         posHeroesEncontrados = buscadorHeroes(superHeroes, estado, 3);
@@ -1535,7 +1539,7 @@ public class NelsonAcuna_Proyecto1 {
         // Limpiamos el arreglo para reutilizarlo con el siguiente estado
         heroesEncontrados.clear();
 
-        // Estado Disponible
+        // Estado Recuperación
         estado = "Recuperación";
         // Obtenemos la lista de posiciones encontradas con el estado indicado
         posHeroesEncontrados = buscadorHeroes(superHeroes, estado, 3);
