@@ -1278,10 +1278,10 @@ public class NelsonAcuna_Proyecto1 {
             ArrayList<Superheroe> superHeroesEncontrados = new ArrayList<>();
 
             // Título
-            System.out.println("-".repeat(15) + " BUSCADOR DE SUPERHÉROES " + "-".repeat(15));
+            System.out.println("\n" + "-".repeat(15) + " BUSCADOR DE SUPERHÉROES " + "-".repeat(15));
 
             // Solicitamos el ID del superhéroe
-            System.out.print("Ingrese el ID del Superhéroe: ");
+            System.out.print("\nIngrese el ID del Superhéroe: ");
             idSuperHeroe = entrada.nextLine();
 
             // Busca el ID del héroe dentro de la lista de héroes actual
@@ -1297,6 +1297,7 @@ public class NelsonAcuna_Proyecto1 {
             // Agregamos el superhéroe encontrado a la lista de encontrados para imprimir
             superHeroesEncontrados.add(superHeroes.get(posIndexSuperHeroe));
 
+            System.out.println("\n" + "-".repeat(86));
             // Imprimimos el superhéroe encontrado
             imprimirSuperHeroes(superHeroesEncontrados);
 
@@ -1364,7 +1365,7 @@ public class NelsonAcuna_Proyecto1 {
         ArrayList<EquipoRescate> equiposMayorCosto = new ArrayList<>();
 
         // Encabezado
-        System.out.println("-".repeat(10) + " EQUIPO CON MAYOR COSTO OPERATIVO " + "-".repeat(11) + "\n");
+        System.out.println("\n" + "-".repeat(10) + " EQUIPO CON MAYOR COSTO OPERATIVO " + "-".repeat(11) + "\n");
 
         //Bucle que 
         for (EquipoRescate equipoRescate : equiposRescate) {
@@ -1379,8 +1380,11 @@ public class NelsonAcuna_Proyecto1 {
         // Agregamos el equipo resultante de mayor costo al arreglo de equiposMayorCosto
         equiposMayorCosto.add(equipoMayorCosto);
 
+        // Imprimimos los datos en pantalla
+        System.out.println("=".repeat(55));
         // Pasamos el arreglo de equiposMayorCosto y lo imprimimos
         imprimirEquiposRescate(equiposMayorCosto);
+        System.out.println("\n" + "=".repeat(55));
     }
 
     /**
@@ -1415,24 +1419,30 @@ public class NelsonAcuna_Proyecto1 {
         // Asignamos el dato a buscar 
         tipoEmergencia = solicitarOpcion(entrada, mensaje, "Desastres naturales", "Invasión alienígena", "Amenaza nuclear", "Villano de alto riesgo");
 
+        // Extraemos la posiciones de los equipos que cumplen con lo solicitado
         posEquiposEncontrados = buscadorEquiposRescate(equiposRescate, tipoEmergencia, 1);
 
+        // Recorremos las posiciones y asignamos lo valores correspondiente a los equipos encontrados
         for (int posEquipo : posEquiposEncontrados) {
             // Agregamos el resultado al arreglo de equipos encontrados
             equiposEncontrados.add(equiposRescate.get(posEquipo));
         }
 
-        imprimirEquiposRescate(equiposEncontrados);
+        // Imprimimos los datos en pantalla
+        System.out.println("\n" + "=".repeat(55));
+        imprimirEquiposRescate(equiposEncontrados);        
+        System.out.println("\nTotal de equipos encontrados: " + equiposEncontrados.size()  + " para " + tipoEmergencia);        
+        System.out.println("\n" + "=".repeat(55));
 
     }
 
     /**
      * Mostrar superhéroes de nivel élite
-     * 
-     * Muestra en pantalla los superhéroes que tienen 
-     * el nivel de experiencia élite.
-     * 
-     * @param superHeroes Lista de superhéroes actuales 
+     *
+     * Muestra en pantalla los superhéroes que tienen el nivel de experiencia
+     * élite.
+     *
+     * @param superHeroes Lista de superhéroes actuales
      */
     public static void mostrarHeroeNivelElite(ArrayList<Superheroe> superHeroes) {
         //Validamos que la lista de equipos de rescate no esté vacia
@@ -1457,13 +1467,17 @@ public class NelsonAcuna_Proyecto1 {
             heroesEncontrados.add(superHeroes.get(posHeroe));
         }
 
+        // Imprimimos los datos en pantalla
+        System.out.println("=".repeat(86));
         imprimirSuperHeroes(heroesEncontrados);
+        System.out.println("Total de héroes de nivel élite encontrado: " + heroesEncontrados.size());       
+        System.out.println("=".repeat(86));
     }
 
     public static void mostrarCantHeroesPorEstado() {
+        
     }
-    
-    
+
     //Metodos de prueba para experimentos de funcionamiento no pertenecen al proyecto
     public static void cargarSuperheroesPrueba(ArrayList<Superheroe> superHeroes) {
 
