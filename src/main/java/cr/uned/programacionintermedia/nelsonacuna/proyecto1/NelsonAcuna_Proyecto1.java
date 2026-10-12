@@ -44,7 +44,7 @@ public class NelsonAcuna_Proyecto1 {
          * Basado en la documentación oficial de Java para las clases
          * PrintStream y StandardCharsets
          */
-        System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));;
+        System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
 
         Scanner scannerEntrada = new Scanner(System.in);
 
